@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Council: stress-test an idea before you spend on it</title>
+<style>
+:root{--ink:#0E0E10;--paper:#F5F3EE;--blue:#2563EB;--slate:#3A3A4A;--red:#D62828;--green:#1F8A3B}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 Inter,system-ui,sans-serif}
+header,.bar,footer{padding:18px 24px;border-bottom:4px solid var(--ink)}h1{margin:0;font:800 clamp(24px,4vw,42px) "Plus Jakarta Sans",Inter,sans-serif;text-transform:uppercase}
+.tag{display:inline-block;background:var(--ink);color:var(--paper);font:700 12px "JetBrains Mono",monospace;padding:3px 8px}
+button,select{font:700 14px "Plus Jakarta Sans",Inter,sans-serif;padding:8px 12px;border:3px solid var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
+#play{background:var(--blue);color:#fff}
+#table{position:relative;height:560px;margin:20px auto;max-width:900px}
+#round{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:260px;height:260px;border:4px solid var(--ink);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:#fff;font-weight:600}
+.seat{position:absolute;width:150px;transform:translate(-50%,-50%);text-align:center}
+.seat .who{border:3px solid var(--ink);background:#fff;padding:6px;font:800 13px "Plus Jakarta Sans",sans-serif}
+.seat small{display:block;font:11px "JetBrains Mono",monospace;color:var(--slate)}
+.seat.on .who{background:var(--ink);color:var(--paper)}
+.bubble{position:absolute;width:230px;border:3px solid var(--ink);background:#fff;box-shadow:4px 4px 0 var(--ink);padding:8px;font-size:13px;transform:translate(-50%,-50%);z-index:2}
+.bubble b{text-transform:uppercase;font:800 11px "JetBrains Mono",monospace}
+.for b{color:var(--green)}.against b{color:var(--red)}.refine b{color:var(--blue)}.dissent b{color:var(--slate)}
+#meter{height:22px;border:3px solid var(--ink);background:#fff;max-width:900px;margin:0 auto}#fill{height:100%;width:0;background:var(--blue);transition:width .6s}
+#result{max-width:900px;margin:16px auto;border:4px solid var(--ink);background:#fff;padding:14px;display:none}
+footer{border:0;font-family:"JetBrains Mono",monospace}a{color:var(--blue)}
+</style></head><body>
+<header><h1>Stress-test an idea before you spend on it.</h1>
+<p>Five viewpoints argue an idea over a few rounds, push back, refine it, and hand you one recommendation with the dissent kept on record. <span class="tag">SAMPLE DEBATES · REPLAY ONLY</span></p>
+<p style="font-size:13px">Seats are fictional personas <em>inspired by</em> historical thinkers. Their lines are written for this demo and are not quotes.</p></header>
+<div class="bar"><select id="pick"></select> <button id="play">Play debate</button> <span id="stat" style="font-family:'JetBrains Mono',monospace"></span></div>
+<div id="table"><div id="round">Pick a sample idea and press play.</div></div>
+<div style="max-width:900px;margin:0 auto;font:700 12px 'JetBrains Mono',monospace">CONVERGENCE</div><div id="meter"><div id="fill"></div></div>
+<div id="result"></div>
+<footer>Code: <a href="https://github.com/obviouslogic-ai/council-demo">council-demo</a> · <a href="https://obviouslogic.ai">obviouslogic.ai</a></footer>
+<script type="module">
+import { loadAll, timeline } from "./player.js";
+const SPEED = new URLSearchParams(location.search).get("fast") ? 60 : 1600;
+const [personas, debates] = await loadAll(fetch);
+const table = document.getElementById("table"), seats = {};
+personas.forEach((p, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / personas.length, x = 50 + 42 * Math.cos(a), y = 50 + 42 * Math.sin(a);
+  const d = document.createElement("div"); d.className = "seat"; d.style.left = x + "%"; d.style.top = y + "%";
+  d.innerHTML = `<div class="who">${p.name}</div><small>inspired by ${p.inspired_by}</small>`; table.append(d); seats[p.id] = { el: d, x, y }; });
+debates.forEach((d, i) => pick.add(new Option(d.idea, i)));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+play.onclick = async () => {
+  play.disabled = true; result.style.display = "none"; fill.style.width = "0";
+  const d = debates[pick.value]; document.getElementById("round").textContent = d.idea;
+  for (const ev of timeline(d)) {
+    table.querySelectorAll(".bubble").forEach(b => b.remove()); Object.values(seats).forEach(s => s.el.classList.remove("on"));
+    if (ev.type === "round") { document.getElementById("stat").textContent = `Round ${ev.round}`; fill.style.width = ev.convergence + "%"; continue; }
+    if (ev.type === "turn") { const s = seats[ev.seat]; s.el.classList.add("on");
+      const b = document.createElement("div"); b.className = "bubble " + ev.stance; b.style.left = (50 + (s.x - 50) * 0.45) + "%"; b.style.top = (50 + (s.y - 50) * 0.45) + "%";
+      b.innerHTML = `<b>${ev.stance}</b><br>${ev.text}`; table.append(b); await sleep(SPEED); }
+    if (ev.type === "end") { fill.style.width = "100%"; document.getElementById("stat").textContent = "Done";
+      result.innerHTML = `<b>RECOMMENDATION</b><p>${ev.recommendation}</p><b>DISSENT ON RECORD</b><p>${ev.dissent}</p><small>${ev.note}</small>`; result.style.display = "block"; }
+  }
+  play.disabled = false; document.body.dataset.done = "1";
+};
+</script></body></html>

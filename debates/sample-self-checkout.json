@@ -1,0 +1,16 @@
+{"sample":true,"note":"SAMPLE CONTENT. Hand-written for this demo. Personas are fictional and only inspired by historical figures; no quotes are attributed to real people.",
+"idea":"Replace the front desk at a small clinic with a self check-in tablet.",
+"rounds":[
+ {"round":1,"convergence":20,"turns":[
+  {"seat":"scale","stance":"for","text":"Check-in is the same five questions every time. A tablet handles the line at 8 AM without overtime."},
+  {"seat":"duty","stance":"against","text":"An older patient who can't use the tablet gets worse service. A rule that only works for some patients isn't a fair rule."},
+  {"seat":"invert","stance":"against","text":"How does this fail? Insurance cards are wrong, the line backs up anyway, and the desk staff now fix tablet errors."}]},
+ {"round":2,"convergence":55,"turns":[
+  {"seat":"rigor","stance":"refine","text":"The tablet can capture details. It can't judge whether someone looks unwell. Keep a person for that."},
+  {"seat":"invent","stance":"refine","text":"Let patients check in from their phone before they arrive, and the tablet becomes the backup."},
+  {"seat":"scale","stance":"refine","text":"Then the desk shrinks from three people at peak to one greeter who also handles exceptions."}]},
+ {"round":3,"convergence":85,"turns":[
+  {"seat":"duty","stance":"for","text":"If anyone can still walk up to a person, I can support it."},
+  {"seat":"invert","stance":"dissent","text":"I'd still pilot it for one month and count the errors before cutting any staff."}]}],
+"recommendation":"Offer phone check-in before arrival, keep one greeter at the desk for anyone who wants a person, and use the tablet as backup. Pilot for a month before changing staffing.",
+"dissent":"The Skeptic wants the error count from the pilot before any staffing decision."}

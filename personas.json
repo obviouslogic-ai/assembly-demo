@@ -1,0 +1,7 @@
+[
+ {"id":"duty","name":"The Ethicist","inspired_by":"Immanuel Kant","lens":"Would this still be fair if everyone did it? Treats people as ends, not means."},
+ {"id":"scale","name":"The Builder","inspired_by":"Andrew Carnegie","lens":"Unit costs, supply, and whether it survives being done ten thousand times."},
+ {"id":"invent","name":"The Inventor","inspired_by":"Nikola Tesla","lens":"Pushes for the bolder version and asks what the idea becomes in ten years."},
+ {"id":"invert","name":"The Skeptic","inspired_by":"Charlie Munger","lens":"Inverts: how would this fail? Looks for incentives and second-order effects."},
+ {"id":"rigor","name":"The Analyst","inspired_by":"Ada Lovelace","lens":"Separates what the system can actually do from what people hope it does."}
+]

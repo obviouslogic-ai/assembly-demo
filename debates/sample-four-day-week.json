@@ -1,0 +1,16 @@
+{"sample":true,"note":"SAMPLE CONTENT. Hand-written for this demo. Personas are fictional and only inspired by historical figures; no quotes are attributed to real people.",
+"idea":"Move a 20-person support team to a four-day week.",
+"rounds":[
+ {"round":1,"convergence":25,"turns":[
+  {"seat":"invent","stance":"for","text":"Rested people solve harder tickets. Try it and the hiring pitch writes itself."},
+  {"seat":"scale","stance":"against","text":"Customers call five days a week. Somebody has to answer on the fifth."},
+  {"seat":"rigor","stance":"refine","text":"Look at the ticket data first: which hours actually carry the load?"}]},
+ {"round":2,"convergence":60,"turns":[
+  {"seat":"invert","stance":"against","text":"If the metric is tickets closed, people will rush tickets to hit it in four days. Watch reopen rates."},
+  {"seat":"duty","stance":"refine","text":"Whatever the schedule, every person should get the same deal, not just the senior staff."},
+  {"seat":"scale","stance":"refine","text":"Stagger it: half the team takes Monday off, half takes Friday. Coverage stays at five days."}]},
+ {"round":3,"convergence":80,"turns":[
+  {"seat":"rigor","stance":"for","text":"With staggering and a reopen-rate check, the risk is measurable."},
+  {"seat":"invent","stance":"dissent","text":"Staggering keeps the meetings and loses the shared day off. I'd test a true four-day week on one pod too."}]}],
+"recommendation":"Run a staggered four-day week for one quarter, with equal terms for everyone, tracking reopen rate and response time against last quarter.",
+"dissent":"The Inventor wants one pod to try a full shared day off as a comparison."}
