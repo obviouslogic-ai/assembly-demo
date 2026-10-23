@@ -1,33 +1,29 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Council: stress-test an idea before you spend on it</title>
+<title>The Council: stress-test an idea before you spend on it</title><link rel="stylesheet" href="theme.css">
 <style>
-:root{--ink:#0E0E10;--paper:#F5F3EE;--blue:#2563EB;--slate:#3A3A4A;--red:#D62828;--green:#1F8A3B}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 Inter,system-ui,sans-serif}
-header,.bar,footer{padding:18px 24px;border-bottom:4px solid var(--ink)}h1{margin:0;font:800 clamp(24px,4vw,42px) "Plus Jakarta Sans",Inter,sans-serif;text-transform:uppercase}
-.tag{display:inline-block;background:var(--ink);color:var(--paper);font:700 12px "JetBrains Mono",monospace;padding:3px 8px}
-button,select{font:700 14px "Plus Jakarta Sans",Inter,sans-serif;padding:8px 12px;border:3px solid var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
-#play{background:var(--blue);color:#fff}
-#table{position:relative;height:560px;margin:20px auto;max-width:900px}
-#round{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:260px;height:260px;border:4px solid var(--ink);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:#fff;font-weight:600}
-.seat{position:absolute;width:150px;transform:translate(-50%,-50%);text-align:center}
-.seat .who{border:3px solid var(--ink);background:#fff;padding:6px;font:800 13px "Plus Jakarta Sans",sans-serif}
-.seat small{display:block;font:11px "JetBrains Mono",monospace;color:var(--slate)}
-.seat.on .who{background:var(--ink);color:var(--paper)}
-.bubble{position:absolute;width:230px;border:3px solid var(--ink);background:#fff;box-shadow:4px 4px 0 var(--ink);padding:8px;font-size:13px;transform:translate(-50%,-50%);z-index:2}
-.bubble b{text-transform:uppercase;font:800 11px "JetBrains Mono",monospace}
-.for b{color:var(--green)}.against b{color:var(--red)}.refine b{color:var(--blue)}.dissent b{color:var(--slate)}
-#meter{height:22px;border:3px solid var(--ink);background:#fff;max-width:900px;margin:0 auto}#fill{height:100%;width:0;background:var(--blue);transition:width .6s}
-#result{max-width:900px;margin:16px auto;border:4px solid var(--ink);background:#fff;padding:14px;display:none}
-footer{border:0;font-family:"JetBrains Mono",monospace}a{color:var(--blue)}
+#table{position:relative;width:100%;height:600px;margin:4vh auto;max-width:960px}
+#round{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;text-align:center;font:400 20px/1.4 system-ui,sans-serif;color:var(--fg)}
+#round::before{content:"";position:absolute;left:50%;top:50%;width:340px;height:340px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#ffffff0d,transparent 70%);z-index:-1}
+.seat{position:absolute;width:170px;transform:translate(-50%,-50%);text-align:center;transition:opacity .8s;opacity:.45}
+.seat .who{font:600 13px Barlow,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.seat small{display:block;font:10px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+.seat.on{opacity:1}
+.bubble{position:absolute;width:220px;transform:translate(-50%,-50%);font-size:15px;line-height:1.5;z-index:2;animation:fade .8s ease}
+@keyframes fade{from{opacity:0;transform:translate(-50%,-40%)}}
+.bubble b{font:11px ui-monospace,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;font-weight:400}
+.for b{color:var(--ok)}.against b{color:var(--bad)}.refine b{color:var(--accent)}.dissent b{color:var(--dim)}
+#meter{width:100%;height:1px;background:var(--faint);max-width:960px;margin:8px auto 0}#fill{height:1px;width:0;background:var(--fg);transition:width 1.2s ease}
+#result{max-width:640px;margin:10vh auto;display:none}#result b{font:11px ui-monospace,Menlo,monospace;letter-spacing:.18em;color:var(--dim);font-weight:400}#result p{font-size:20px;margin:8px 0 40px}
+.wrap{width:100%;max-width:960px;margin:0 auto}
 </style></head><body>
-<header><h1>Stress-test an idea before you spend on it.</h1>
-<p>Five viewpoints argue an idea over a few rounds, push back, refine it, and hand you one recommendation with the dissent kept on record. <span class="tag">SAMPLE DEBATES · REPLAY ONLY</span></p>
-<p style="font-size:13px">Seats are fictional personas <em>inspired by</em> historical thinkers. Their lines are written for this demo and are not quotes.</p></header>
-<div class="bar"><select id="pick"></select> <button id="play">Play debate</button> <span id="stat" style="font-family:'JetBrains Mono',monospace"></span></div>
+<section class="screen in"><div class="tele">DEMO 05 / <b>THE COUNCIL</b> &nbsp; MODE <b>REPLAY</b> &nbsp; SAMPLE DEBATES</div>
+<h1 style="margin-top:28px">Most bad ideas get funded because nobody argued.</h1>
+<p class="lede">Five viewpoints take an idea apart over a few rounds, then hand you one refined recommendation, with the dissent kept on record. The seats are fictional personas <em>inspired by</em> historical thinkers. Their lines were written for this demo and are not quotes.</p></section>
+<section class="screen"><div class="wrap tele"><select id="pick"></select> <button id="play">Play debate</button> ROUND <b id="stat">-</b></div>
 <div id="table"><div id="round">Pick a sample idea and press play.</div></div>
-<div style="max-width:900px;margin:0 auto;font:700 12px 'JetBrains Mono',monospace">CONVERGENCE</div><div id="meter"><div id="fill"></div></div>
-<div id="result"></div>
-<footer>Code: <a href="https://github.com/obviouslogic-ai/council-demo">council-demo</a> · <a href="https://obviouslogic.ai">obviouslogic.ai</a></footer>
+<div class="wrap tele">CONVERGENCE</div><div id="meter"><div id="fill"></div></div>
+<div id="result"></div></section>
+<footer class="tele">SOURCE <a href="https://github.com/obviouslogic-ai/council-demo">council-demo</a> &nbsp; / &nbsp; <a href="https://obviouslogic.ai">obviouslogic.ai</a></footer>
 <script type="module">
 import { loadAll, timeline } from "./player.js";
 const SPEED = new URLSearchParams(location.search).get("fast") ? 60 : 1600;
@@ -43,13 +39,14 @@ play.onclick = async () => {
   const d = debates[pick.value]; document.getElementById("round").textContent = d.idea;
   for (const ev of timeline(d)) {
     table.querySelectorAll(".bubble").forEach(b => b.remove()); Object.values(seats).forEach(s => s.el.classList.remove("on"));
-    if (ev.type === "round") { document.getElementById("stat").textContent = `Round ${ev.round}`; fill.style.width = ev.convergence + "%"; continue; }
+    if (ev.type === "round") { document.getElementById("stat").textContent = `${String(ev.round).padStart(2,"0")}`; fill.style.width = ev.convergence + "%"; continue; }
     if (ev.type === "turn") { const s = seats[ev.seat]; s.el.classList.add("on");
-      const b = document.createElement("div"); b.className = "bubble " + ev.stance; b.style.left = (50 + (s.x - 50) * 0.45) + "%"; b.style.top = (50 + (s.y - 50) * 0.45) + "%";
+      const b = document.createElement("div"); b.className = "bubble " + ev.stance; b.style.left = (50 + (s.x - 50) * 0.5) + "%"; b.style.top = (50 + (s.y - 50) * 0.5) + "%";
       b.innerHTML = `<b>${ev.stance}</b><br>${ev.text}`; table.append(b); await sleep(SPEED); }
-    if (ev.type === "end") { fill.style.width = "100%"; document.getElementById("stat").textContent = "Done";
+    if (ev.type === "end") { fill.style.width = "100%"; document.getElementById("stat").textContent = "COMPLETE";
       result.innerHTML = `<b>RECOMMENDATION</b><p>${ev.recommendation}</p><b>DISSENT ON RECORD</b><p>${ev.dissent}</p><small>${ev.note}</small>`; result.style.display = "block"; }
   }
   play.disabled = false; document.body.dataset.done = "1";
 };
-</script></body></html>
+</script><script>const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("in")),{threshold:.15});document.querySelectorAll(".screen").forEach(s=>io.observe(s));</script>
+</body></html>

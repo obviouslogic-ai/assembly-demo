@@ -1,0 +1,19 @@
+@font-face{font-family:Barlow;font-weight:400;src:url(fonts/barlow-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Barlow;font-weight:600;src:url(fonts/barlow-latin-600-normal.woff2) format("woff2")}
+:root{--bg:#07080A;--fg:#F4F4F2;--dim:#8A8D93;--faint:#2A2C31;--ok:#7CE0A3;--bad:#FF6B5E;--accent:#9DB8FF}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,.h{font-family:Barlow,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;margin:0}
+h1{font-size:clamp(30px,5vw,60px);line-height:1.1;max-width:20ch}h2{font-size:15px;color:var(--dim);margin-bottom:24px}
+.screen{min-height:90vh;padding:12vh 8vw;display:flex;flex-direction:column;justify-content:center;opacity:.25;transform:translateY(24px);transition:opacity 1.2s ease,transform 1.2s ease}
+.screen.in{opacity:1;transform:none}
+.lede{max-width:52ch;color:var(--dim);font-size:19px;margin-top:28px}
+.tele{font:11px/1.4 ui-monospace,"SFMono-Regular",Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.tele b{color:var(--fg);font-weight:400}
+button,select,input{background:transparent;color:var(--fg);border:0;font:600 13px Barlow,sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:10px 0;margin-right:32px;cursor:pointer}
+button:hover{color:var(--accent)}button:disabled{color:var(--faint);cursor:default}
+input{text-transform:none;letter-spacing:0;font:400 20px system-ui,sans-serif;width:100%;max-width:640px;border-bottom:1px solid var(--faint);margin-bottom:16px}
+select{border-bottom:1px solid var(--faint);text-transform:none;letter-spacing:.02em;font:400 16px system-ui,sans-serif}
+select option{background:var(--bg)}
+a{color:var(--fg);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--dim)}
+footer{padding:8vh 8vw}
