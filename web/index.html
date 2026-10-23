@@ -1,6 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Council: stress-test an idea before you spend on it</title><link rel="stylesheet" href="theme.css">
-<style>
+<title>Council · ObviousLogic demos</title><link rel="stylesheet" href="kit/kit.css"><style>
 #table{position:relative;width:100%;height:600px;margin:4vh auto;max-width:960px}
 #round{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;text-align:center;font:400 20px/1.4 system-ui,sans-serif;color:var(--fg)}
 #round::before{content:"";position:absolute;left:50%;top:50%;width:340px;height:340px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#ffffff0d,transparent 70%);z-index:-1}
@@ -13,21 +12,23 @@
 .bubble b{font:11px ui-monospace,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;font-weight:400}
 .for b{color:var(--ok)}.against b{color:var(--bad)}.refine b{color:var(--accent)}.dissent b{color:var(--dim)}
 #meter{width:100%;height:1px;background:var(--faint);max-width:960px;margin:8px auto 0}#fill{height:1px;width:0;background:var(--fg);transition:width 1.2s ease}
-#result{max-width:640px;margin:10vh auto;display:none}#result b{font:11px ui-monospace,Menlo,monospace;letter-spacing:.18em;color:var(--dim);font-weight:400}#result p{font-size:20px;margin:8px 0 40px}
+#result{max-width:640px;margin:10vh 0 0;display:none}#result b{font:11px ui-monospace,Menlo,monospace;letter-spacing:.18em;color:var(--dim);font-weight:400}#result p{font-size:20px;margin:8px 0 40px}
 .wrap{width:100%;max-width:960px;margin:0 auto}
 </style></head><body>
-<section class="screen in"><div class="tele">DEMO 05 / <b>THE COUNCIL</b> &nbsp; MODE <b>REPLAY</b> &nbsp; SAMPLE DEBATES</div>
-<h1 style="margin-top:28px">Most bad ideas get funded because nobody argued.</h1>
-<p class="lede">Five viewpoints take an idea apart over a few rounds, then hand you one refined recommendation, with the dissent kept on record. The seats are fictional personas <em>inspired by</em> historical thinkers. Their lines were written for this demo and are not quotes.</p></section>
-<section class="screen"><div class="wrap tele"><select id="pick"></select> <button id="play">Play debate</button> ROUND <b id="stat">-</b></div>
+<section class="screen in"><div class="tele" data-kit-tele></div>
+<h1>Big calls get argued before they get made.</h1>
+<p class="lede">In Palladium, a high-stakes recommendation goes to a council of differing viewpoints first. They critique it over rounds, refine it, and the dissent stays on record next to the decision. This page replays hand-written sample debates.</p>
+<p data-kit-note></p>
+<p class="note">Seats are fictional personas <em>inspired by</em> historical thinkers. Their lines were written for this demo and are not quotes. Debates are sample content.</p></section>
+<section class="screen"><div class="tele"><select id="pick"></select> <button id="play" class="go">Play debate</button> ROUND <b id="stat">-</b></div>
 <div id="table"><div id="round">Pick a sample idea and press play.</div></div>
-<div class="wrap tele">CONVERGENCE</div><div id="meter"><div id="fill"></div></div>
+<div class="tele">CONVERGENCE</div><div id="meter"><div id="fill"></div></div>
 <div id="result"></div></section>
-<footer class="tele">SOURCE <a href="https://github.com/obviouslogic-ai/council-demo">council-demo</a> &nbsp; / &nbsp; <a href="https://obviouslogic.ai">obviouslogic.ai</a></footer>
 <script type="module">
-import { loadAll, timeline } from "./player.js";
+import { loadAll, timeline } from "../player.js";
+import { mount, setStatus } from "./kit/kit.js"; mount("council-demo", { status: "REPLAY" });
 const SPEED = new URLSearchParams(location.search).get("fast") ? 60 : 1600;
-const [personas, debates] = await loadAll(fetch);
+const [personas, debates] = await loadAll(fetch, "../");
 const table = document.getElementById("table"), seats = {};
 personas.forEach((p, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / personas.length, x = 50 + 42 * Math.cos(a), y = 50 + 42 * Math.sin(a);
   const d = document.createElement("div"); d.className = "seat"; d.style.left = x + "%"; d.style.top = y + "%";
@@ -48,5 +49,4 @@ play.onclick = async () => {
   }
   play.disabled = false; document.body.dataset.done = "1";
 };
-</script><script>const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("in")),{threshold:.15});document.querySelectorAll(".screen").forEach(s=>io.observe(s));</script>
-</body></html>
+</script></body></html>

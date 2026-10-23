@@ -1,0 +1,4 @@
+web/vendor/
+__pycache__/
+audit.log
+node_modules/

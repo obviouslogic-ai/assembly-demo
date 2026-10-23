@@ -1,20 +1,41 @@
 # council-demo
 
-**The problem:** a good idea gets approved because nobody in the room argued with it. This demo puts an idea in front of five different viewpoints, lets them push back over a few rounds, and ends with one refined recommendation plus the dissent kept on record.
+A replayed debate where differing viewpoints critique a big decision over rounds before it is made, with dissent kept on record.
 
-This repo is **replay only**. The debates in `debates/` are **sample content, hand-written for the demo**. The personas in `personas.json` are fictional and only *inspired by* historical thinkers (Kant, Carnegie, Tesla, Munger, Lovelace). Their lines are not quotes and are not attributed to real people.
+**This is a scripted demo.** It represents the governance process I use in Palladium, my own agent framework. It is not a sample or excerpt of that system, and no Palladium code or data is in it.
 
-## Run
-```
-python3 -m http.server 8000   # open http://localhost:8000 (add ?fast=1 to speed up)
-```
-No build step, no network calls, no API keys.
+- Live page: https://demos.obviouslogic.ai/council-demo/
+- Source: https://github.com/obviouslogic-ai/council-demo
 
-## Test
+## How it fits Palladium governance
+
+In Palladium, a high-stakes recommendation goes to a council of differing viewpoints before I act on it. This repo replays hand-written sample debates. Seats are fictional personas inspired by historical thinkers; their lines are written for the demo, not quotes. Nothing calls a paid model.
+
+## Run the CLI
+
+```sh
+node -e 'import("./player.js").then(m=>console.log(m.DEBATES))'
 ```
+
+Standard library only, no installs.
+
+## Run the page locally
+
+```sh
+python3 -m http.server 8000   # from the folder that holds this repo
+# open http://localhost:8000/council-demo/web/
+```
+
+Pick a sample idea and press **Play debate**. Add `?fast=1` to the URL to skip the pauses.
+
+The page imports this repo's own JS module, so what you click is the same code the tests cover. Styling comes from `web/kit/`, shared across all five demos.
+
+## Tests
+
+```sh
 node --test
 ```
-Checks that personas are labeled, every debate is labeled as sample, seats and stances are valid, convergence never goes down, and each debate ends with a recommendation and a dissent.
 
-## Add a debate
-Copy a file in `debates/`, keep `"sample": true` and the note, and add the path to `DEBATES` in `player.js`.
+## License
+
+MIT
