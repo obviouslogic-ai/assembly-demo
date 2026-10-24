@@ -15,8 +15,6 @@ This repo replays four hand-written samples of a conference-room working session
 
 ## Why I built this
 
-> DRAFT, pending Dan's confirmation.
->
 > An idea gets stress-tested by many perspectives and checked against set gates before it costs anything.
 
 ## Run the CLI
