@@ -1,0 +1,225 @@
+{
+ "sample": true,
+ "title": "Sample idea: a vendor invoice approval workflow",
+ "idea": "Route every vendor invoice through an online approval workflow instead of email.",
+ "rounds": [
+  {
+   "name": "Opening positions",
+   "notes": [
+    [
+     "economist",
+     "support",
+     "Late invoices cost us early-payment discounts every month.",
+     ""
+    ],
+    [
+     "manufacturer",
+     "push",
+     "Our suppliers send paper and PDFs. I think the workflow should accept whatever they send, not force a portal.",
+     "economist"
+    ],
+    [
+     "operator",
+     "refine",
+     "Who approves what? Without limits, everything waits on the CFO.",
+     ""
+    ],
+    [
+     "steward",
+     "push",
+     "Approvals by the same person who ordered the goods invite fraud.",
+     "operator"
+    ],
+    [
+     "polymath",
+     "support",
+     "Match each invoice to its purchase order and most approve themselves.",
+     ""
+    ]
+   ],
+   "card": "An approval workflow that accepts any invoice format, matches it to a purchase order, and routes by amount.",
+   "credits": [
+    [
+     "manufacturer",
+     "accepts any invoice format"
+    ],
+    [
+     "polymath",
+     "matches it to a purchase order"
+    ],
+    [
+     "operator",
+     "routes by amount"
+    ]
+   ]
+  },
+  {
+   "name": "Pushback and concessions",
+   "notes": [
+    [
+     "economist",
+     "concede",
+     "Agreed, no portal. We scan email and paper into it.",
+     "manufacturer"
+    ],
+    [
+     "engineer",
+     "refine",
+     "Invoices that match the PO within 2 percent auto-approve under $5,000.",
+     "polymath"
+    ],
+    [
+     "steward",
+     "push",
+     "Auto-approve is fine, but never to a new vendor or a changed bank account.",
+     "engineer"
+    ],
+    [
+     "engineer",
+     "concede",
+     "Right. New vendors and bank changes always need two people.",
+     "steward"
+    ],
+    [
+     "operator",
+     "refine",
+     "Set approval limits by amount: manager, then director, then CFO.",
+     ""
+    ]
+   ],
+   "card": "Invoices in any format are matched to a PO; matches under $5,000 auto-approve, larger ones route by amount, and new vendors or bank changes need two approvers.",
+   "credits": [
+    [
+     "engineer",
+     "matches under $5,000 auto-approve"
+    ],
+    [
+     "operator",
+     "larger ones route by amount"
+    ],
+    [
+     "steward",
+     "new vendors or bank changes need two approvers"
+    ]
+   ]
+  },
+  {
+   "name": "Best version",
+   "notes": [
+    [
+     "measurer",
+     "refine",
+     "Report discounts captured and days-to-pay monthly, or we won't know it worked.",
+     ""
+    ],
+    [
+     "craftsman",
+     "support",
+     "Clear limits and a fraud stop. Good craftsmanship.",
+     ""
+    ],
+    [
+     "utilitarian",
+     "support",
+     "Vendors get paid sooner, finance spends less time chasing. Everybody wins.",
+     "measurer"
+    ]
+   ],
+   "card": "Any-format invoices matched to POs, auto-approval under $5,000, tiered limits above, two approvers for new vendors or bank changes, and monthly results.",
+   "credits": [
+    [
+     "operator",
+     "tiered limits above"
+    ],
+    [
+     "measurer",
+     "monthly results"
+    ]
+   ]
+  }
+ ],
+ "vote": {
+  "proceed": 17,
+  "revise": 3,
+  "kill": 0
+ },
+ "gates": [
+  {
+   "gate": "Business value",
+   "status": "pass",
+   "finding": "Captures early-payment discounts.",
+   "change": "None."
+  },
+  {
+   "gate": "Feasibility",
+   "status": "pass",
+   "finding": "Scanning and PO data already exist.",
+   "change": "None."
+  },
+  {
+   "gate": "Risk and safety",
+   "status": "revise",
+   "finding": "Bank detail changes are a known fraud route.",
+   "change": "Confirm any bank change by phone to a known number."
+  },
+  {
+   "gate": "Cost",
+   "status": "pass",
+   "finding": "Pays for itself in discounts.",
+   "change": "None."
+  },
+  {
+   "gate": "Human impact",
+   "status": "pass",
+   "finding": "Vendors keep sending invoices their way.",
+   "change": "None."
+  },
+  {
+   "gate": "Clarity",
+   "status": "pass",
+   "finding": "Limits fit in one table.",
+   "change": "None."
+  }
+ ],
+ "final": "Vendor invoices arrive however vendors send them and are matched to purchase orders. Matches within 2 percent under $5,000 approve automatically, larger ones go to manager, director or CFO by amount, and any new vendor or bank change needs two approvers plus a phone check to a known number. Discounts captured and days-to-pay are reported monthly.",
+ "changed": [
+  "No vendor portal, any format accepted",
+  "Matched to purchase orders",
+  "Auto-approve small exact matches",
+  "Tiered approval limits",
+  "Two approvers for new vendors and bank changes",
+  "Monthly results"
+ ],
+ "dissent": "The Manufacturer worries small suppliers will be confused by automated remittance emails.",
+ "readiness": "Ready to build",
+ "final_credits": [
+  [
+   "manufacturer",
+   "arrive however vendors send them"
+  ],
+  [
+   "polymath",
+   "matched to purchase orders"
+  ],
+  [
+   "engineer",
+   "Matches within 2 percent under $5,000 approve automatically"
+  ],
+  [
+   "operator",
+   "manager, director or CFO by amount"
+  ],
+  [
+   "steward",
+   "any new vendor or bank change needs two approvers"
+  ],
+  [
+   "gate:Risk and safety",
+   "plus a phone check to a known number"
+  ],
+  [
+   "measurer",
+   "Discounts captured and days-to-pay are reported monthly"
+  ]
+ ]
+}

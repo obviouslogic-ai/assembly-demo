@@ -1,0 +1,234 @@
+{
+ "sample": true,
+ "title": "Sample idea: AI triage of support tickets",
+ "idea": "Let an AI read every incoming support ticket, set its priority and send it to the right team.",
+ "rounds": [
+  {
+   "name": "Opening positions",
+   "notes": [
+    [
+     "operator",
+     "support",
+     "Tickets sit for hours just waiting to be sorted. Triage is the bottleneck.",
+     ""
+    ],
+    [
+     "advocate",
+     "push",
+     "An angry customer marked low priority by a model gets ignored. I think a person should see anything about money or safety.",
+     "operator"
+    ],
+    [
+     "measurer",
+     "push",
+     "How accurate is the routing? Compare it to how agents sorted last month's tickets first.",
+     ""
+    ],
+    [
+     "engineer",
+     "refine",
+     "Unsure tickets should go to a human queue, not a guess.",
+     ""
+    ],
+    [
+     "pragmatist",
+     "support",
+     "Start with routing only. Priority is the riskier part.",
+     ""
+    ]
+   ],
+   "card": "An AI routes incoming tickets to teams; unsure cases and anything about money or safety go to a person.",
+   "credits": [
+    [
+     "pragmatist",
+     "routes incoming tickets to teams"
+    ],
+    [
+     "engineer",
+     "unsure cases"
+    ],
+    [
+     "advocate",
+     "anything about money or safety go to a person"
+    ]
+   ]
+  },
+  {
+   "name": "Pushback and concessions",
+   "notes": [
+    [
+     "operator",
+     "concede",
+     "Okay, routing first. Priority stays with people until the routing proves itself.",
+     "pragmatist"
+    ],
+    [
+     "guide",
+     "push",
+     "Customers should know a person can step in. Say it in the auto-reply.",
+     "operator"
+    ],
+    [
+     "measurer",
+     "refine",
+     "Backtest on three months of tickets. Go live only above 90 percent agreement.",
+     "engineer"
+    ],
+    [
+     "strategist",
+     "doubt",
+     "Spammers will learn the keywords that jump the queue.",
+     ""
+    ],
+    [
+     "engineer",
+     "concede",
+     "Then routing ignores urgency words. It only picks the team.",
+     "strategist"
+    ]
+   ],
+   "card": "An AI picks the team for each ticket after a three-month backtest above 90 percent; money, safety and unsure cases go to a person, and priority stays human, and the auto-reply says a person can step in.",
+   "credits": [
+    [
+     "strategist",
+     "picks the team for each ticket"
+    ],
+    [
+     "measurer",
+     "three-month backtest above 90 percent"
+    ],
+    [
+     "pragmatist",
+     "priority stays human"
+    ],
+    [
+     "guide",
+     "the auto-reply says a person can step in"
+    ]
+   ]
+  },
+  {
+   "name": "Best version",
+   "notes": [
+    [
+     "mapper",
+     "refine",
+     "Misroutes should feed back weekly so the routing improves.",
+     ""
+    ],
+    [
+     "composer",
+     "support",
+     "Machine sorts, people judge. Each part plays to its strength.",
+     ""
+    ],
+    [
+     "programmer",
+     "refine",
+     "Log every routing decision with its reason so we can audit it.",
+     "mapper"
+    ]
+   ],
+   "card": "Routing only, live after a backtest above 90 percent, with human review for money, safety and unsure cases, every decision logged, and weekly misroute feedback, and the auto-reply says a person can step in.",
+   "credits": [
+    [
+     "programmer",
+     "every decision logged"
+    ],
+    [
+     "mapper",
+     "weekly misroute feedback"
+    ]
+   ]
+  }
+ ],
+ "vote": {
+  "proceed": 13,
+  "revise": 6,
+  "kill": 1
+ },
+ "gates": [
+  {
+   "gate": "Business value",
+   "status": "pass",
+   "finding": "Tickets reach the right team in minutes.",
+   "change": "None."
+  },
+  {
+   "gate": "Feasibility",
+   "status": "pass",
+   "finding": "Ticket text and team list already exist.",
+   "change": "None."
+  },
+  {
+   "gate": "Risk and safety",
+   "status": "revise",
+   "finding": "Personal data in tickets goes to the model.",
+   "change": "Mask card numbers and addresses before routing."
+  },
+  {
+   "gate": "Cost",
+   "status": "pass",
+   "finding": "Cheap per ticket.",
+   "change": "None."
+  },
+  {
+   "gate": "Human impact",
+   "status": "pass",
+   "finding": "People keep every judgment call.",
+   "change": "None."
+  },
+  {
+   "gate": "Clarity",
+   "status": "pass",
+   "finding": "One rule: it only picks the team.",
+   "change": "None."
+  }
+ ],
+ "final": "An AI picks the right team for each new ticket, going live only after a three-month backtest above 90 percent agreement. Card numbers and addresses are masked first. Anything about money, safety or low confidence goes to a person, priority stays human, every decision is logged with a reason, and misroutes feed back weekly. Every auto-reply says a person can step in.",
+ "changed": [
+  "Routing only, priority stays human",
+  "Backtest above 90 percent first",
+  "Money, safety and unsure cases to a person",
+  "Personal data masked",
+  "Every decision logged",
+  "Weekly misroute feedback",
+  "Auto-reply offers a person"
+ ],
+ "dissent": "The Advocate wants customers to be able to opt out of AI routing entirely.",
+ "readiness": "Ready for a backtest",
+ "final_credits": [
+  [
+   "strategist",
+   "picks the right team for each new ticket"
+  ],
+  [
+   "measurer",
+   "three-month backtest above 90 percent agreement"
+  ],
+  [
+   "gate:Risk and safety",
+   "Card numbers and addresses are masked first"
+  ],
+  [
+   "advocate",
+   "Anything about money, safety or low confidence goes to a person"
+  ],
+  [
+   "pragmatist",
+   "priority stays human"
+  ],
+  [
+   "programmer",
+   "every decision is logged with a reason"
+  ],
+  [
+   "mapper",
+   "misroutes feed back weekly"
+  ],
+  [
+   "guide",
+   "Every auto-reply says a person can step in"
+  ]
+ ]
+}

@@ -9,9 +9,9 @@ Twenty very different minds refine an idea over rounds, vote on it, and run it t
 
 ## How it fits Palladium governance
 
-In Palladium, a contested idea goes to an assembly before it costs anything. Seats take blind positions, cross-examine each other and vote proceed, revise or kill. A surviving idea then passes six generic refinement gates (business value, feasibility, risk and safety, cost, human impact, clarity), each marked pass, revise or fail. The result is a readiness level, the refined idea, a list of what changed and the dissent.
+In Palladium, a contested idea goes to a working session before it costs anything. Picture twenty very different people around one conference table: they state opening positions, push back, make concessions and pass notes over two or three rounds until the idea is at its best version, then vote proceed, revise or kill. A surviving idea then passes six generic refinement gates (business value, feasibility, risk and safety, cost, human impact, clarity), each marked pass, revise or fail. The result is a readiness level, the refined idea, a list of what changed and the dissent.
 
-This repo replays two hand-written samples. The 20 seats are fictional personas *inspired by* public-domain historical figures. Their lines were written for this demo and are not quotes. Nothing calls a model.
+This repo replays four hand-written samples of a conference-room working session. The 20 seats are invented personas, each a role with a short description and what inspires them. None is a real person; some list public figures only as inspirations, and none speaks for them. Seat configurations are private and not part of this repo. Their lines were written for this demo and are not quotes. Nothing calls a model.
 
 ## Why I built this
 
@@ -34,14 +34,14 @@ python3 -m http.server 8000   # from the folder that holds this repo
 # open http://localhost:8000/assembly-demo/web/
 ```
 
-The page fits one screen. Pick a sample idea and press **Submit idea to the Assembly**. Seats light up as they speak, the idea card evolves, the gates light pass or revise, and a final card shows the outcome. Press **Replay** to run it again. The explanation sits behind **About this demo** in the corner. Add `?fast=1` to skip the pauses.
+The page fits one screen. Pick a sample idea and press **Submit idea to the Assembly**. The twenty sit around a table seen from above and pass notes across it while the idea card evolves. Hover or tap a seat to read who they are. Then the gates light pass or revise, and a final card shows the outcome. Press **Replay** to run it again. The explanation sits behind **About this demo** in the corner. Add `?fast=1` to skip the pauses.
 
 The page imports this repo's own JS module, so what you see is the same code the tests cover. Styling comes from `web/kit/`, shared across all five demos.
 
 ## Files
 
-- `personas.json`: the 20 seats, with name, inspired_by, field and lens.
-- `ideas/*.json`: the two samples, each labeled `sample: true`.
+- `personas.json`: the 20 seats, with name, persona, inspired_by (an idea, never a person), field and lens.
+- `ideas/*.json`: the four samples, each labeled `sample: true`.
 - `assembly.js`: loads ideas, builds the replay timeline and validates each sample.
 
 ## Tests
@@ -55,3 +55,12 @@ Checks every sample is labeled, seats and stances are valid, the vote covers all
 ## License
 
 MIT
+
+## What the page shows
+
+- A scripted demo representing a working session I run every day.
+- Round structure: two or three rounds, then a vote of all twenty, then six gates.
+- Credits: each phrase on the idea card is tagged with the seat (or gate) whose note put it there.
+- Tracked objections: every push or doubt stays open until its author shapes the card, concedes, or is answered; anything left open is the dissent.
+- Gates show their pass or revise reason.
+- Hover or tap a seat for its perspective, preferences, inspirations and what it changed in the selected idea.

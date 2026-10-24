@@ -1,7 +1,7 @@
 // Replay player for the Assembly demo. Scripted sample content only; nothing calls a model.
-export const IDEAS = ["ideas/sample-refund-agent.json", "ideas/sample-four-day-week.json"];
+export const IDEAS = ["ideas/sample-client-onboarding.json", "ideas/sample-kpi-digest.json", "ideas/sample-ticket-triage.json", "ideas/sample-invoice-approval.json"];
 export const GATES = ["Business value", "Feasibility", "Risk and safety", "Cost", "Human impact", "Clarity"];
-const STANCES = ["support", "doubt", "refine"], STATUS = ["pass", "revise", "fail"];
+const STANCES = ["support", "doubt", "refine", "push", "concede"], STATUS = ["pass", "revise", "fail"];
 
 export async function loadAll(f, base = "") {
   const get = async p => (await f(base + p)).json();
@@ -13,25 +13,49 @@ export function timeline(idea) {
   const out = [{ kind: "card", version: 0, text: idea.idea }];
   idea.rounds.forEach((r, i) => {
     out.push({ kind: "round", n: i + 1, name: r.name });
-    r.notes.forEach(([seat, stance, text]) => out.push({ kind: "note", round: i + 1, seat, stance, text }));
-    out.push({ kind: "card", version: i + 1, text: r.card });
+    r.notes.forEach(([seat, stance, text, to]) => out.push({ kind: "note", round: i + 1, seat, stance, text, to: to || null }));
+    out.push({ kind: "card", version: i + 1, text: r.card, credits: r.credits || [] });
   });
   out.push({ kind: "vote", ...idea.vote });
   idea.gates.forEach((g, i) => out.push({ kind: "gate", n: i, ...g }));
-  out.push({ kind: "final", text: idea.final, changed: idea.changed, dissent: idea.dissent, readiness: idea.readiness });
+  out.push({ kind: "final", text: idea.final, credits: idea.final_credits || [], objections: objections(idea), changed: idea.changed, dissent: idea.dissent, readiness: idea.readiness });
+  return out;
+}
+
+// Track objections: a push or doubt is resolved when its author later
+// shapes the card, concedes, or someone answers them directly; otherwise it stays open as dissent.
+export function objections(idea) {
+  const out = [];
+  idea.rounds.forEach((r, i) => r.notes.forEach(([seat, stance, text]) => {
+    if (stance !== "push" && stance !== "doubt") return;
+    let by = null;
+    for (let j = i; j < idea.rounds.length && !by; j++) {
+      const later = idea.rounds[j], start = j === i ? r.notes.findIndex(n => n[0] === seat && n[2] === text) + 1 : 0;
+      const ans = later.notes.slice(start).find(n => n[3] === seat && ["concede", "refine", "support"].includes(n[1]));
+      const cr = (later.credits || []).find(c => c[0] === seat);
+      if (cr) by = { round: j + 1, how: "changed the card", seat, phrase: cr[1] };
+      else if (ans) by = { round: j + 1, how: ans[1] === "concede" ? "conceded" : "answered", seat: ans[0] };
+      else if (later.notes.slice(start).some(n => n[0] === seat && n[1] === "concede")) by = { round: j + 1, how: "withdrew", seat };
+    }
+    out.push({ round: i + 1, seat, text, resolved: by });
+  }));
   return out;
 }
 
 export function validate(idea, personas) {
   const ids = new Set(personas.map(p => p.id)), err = [];
   if (idea.sample !== true || !/^Sample/.test(idea.title)) err.push("must be labeled as a sample");
-  for (const r of idea.rounds) for (const [s, st] of r.notes) {
+  for (const r of idea.rounds) for (const [s, st, , to] of r.notes) {
     if (!ids.has(s)) err.push(`unknown seat ${s}`);
+    if (to && !ids.has(to)) err.push(`unknown note target ${to}`);
     if (!STANCES.includes(st)) err.push(`bad stance ${st}`);
   }
   if (idea.gates.map(g => g.gate).join() !== GATES.join()) err.push("gates must be the six standard gates in order");
   for (const g of idea.gates) if (!STATUS.includes(g.status)) err.push(`bad gate status ${g.status}`);
+  if (idea.rounds.length < 2 || idea.rounds.length > 3) err.push("two or three refinement rounds");
+  if (!idea.rounds.some(r => r.notes.some(n => n[1] === "push")) || !idea.rounds.some(r => r.notes.some(n => n[1] === "concede"))) err.push("needs pushback and a concession");
   const v = idea.vote; if (v.proceed + v.revise + v.kill !== personas.length) err.push("vote must count every seat");
+  for (const [i, r] of idea.rounds.entries()) for (const [s, ph] of r.credits || []) if (!ph || !r.card.includes(ph) || !(s in Object.fromEntries(personas.map(p => [p.id, 1])))) err.push(`round ${i + 1} credit ${s} must name a seat and a phrase in the card`);
   if (!idea.final || !idea.changed?.length || !idea.dissent) err.push("final needs text, changes and dissent");
   return err;
 }

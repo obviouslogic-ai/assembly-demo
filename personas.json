@@ -1,142 +1,246 @@
 [
  {
-  "id": "curie",
+  "id": "measurer",
   "name": "The Measurer",
-  "inspired_by": "Marie Curie",
+  "inspired_by": "Numbers you can repeat",
   "field": "science",
-  "lens": "Asks what was actually measured and how often."
+  "lens": "Asks what was actually measured and how often.",
+  "persona": "A lab chemist who has rerun the same test a thousand times.",
+  "inspirations": [
+   "Marie Curie",
+   "Richard Feynman"
+  ],
+  "prefers": "Repeatable tests, a baseline before any change"
  },
  {
-  "id": "darwin",
+  "id": "observer",
   "name": "The Observer",
-  "inspired_by": "Charles Darwin",
+  "inspired_by": "Slow, patient observation",
   "field": "science",
-  "lens": "Watches what survives small changes over time."
+  "lens": "Watches what survives small changes over time.",
+  "persona": "A field biologist who keeps notebooks on everything that changes.",
+  "inspirations": [
+   "Jane Goodall",
+   "Charles Darwin"
+  ],
+  "prefers": "Long observation before conclusions"
  },
  {
-  "id": "lovelace",
+  "id": "programmer",
   "name": "The Programmer",
-  "inspired_by": "Ada Lovelace",
+  "inspired_by": "Instructions a machine can follow",
   "field": "science",
-  "lens": "Asks what the machine can and cannot be told to do."
+  "lens": "Asks what the machine can and cannot be told to do.",
+  "persona": "A software lead who reads every edge case as a bug report.",
+  "inspirations": [
+   "Ada Lovelace",
+   "Grace Hopper"
+  ],
+  "prefers": "Inputs checked at the door, every decision logged"
  },
  {
-  "id": "humboldt",
+  "id": "mapper",
   "name": "The Systems Mapper",
-  "inspired_by": "Alexander von Humboldt",
+  "inspired_by": "How everything connects",
   "field": "science",
-  "lens": "Traces how one change ripples through connected parts."
+  "lens": "Traces how one change ripples through connected parts.",
+  "persona": "A geographer who draws how one change ripples through a system.",
+  "inspirations": [
+   "Donella Meadows"
+  ],
+  "prefers": "Feedback loops over one-off fixes"
  },
  {
-  "id": "tesla",
+  "id": "inventor",
   "name": "The Inventor",
-  "inspired_by": "Nikola Tesla",
+  "inspired_by": "Trying the bold version first",
   "field": "science",
-  "lens": "Pushes for the bolder version of the idea."
+  "lens": "Pushes for the bolder version of the idea.",
+  "persona": "A hardware tinkerer with a garage full of prototypes.",
+  "inspirations": [
+   "Thomas Edison",
+   "Nikola Tesla"
+  ],
+  "prefers": "Prototype the bold version, cut later"
  },
  {
-  "id": "smith",
+  "id": "economist",
   "name": "The Economist",
-  "inspired_by": "Adam Smith",
+  "inspired_by": "Incentives and trade",
   "field": "business",
-  "lens": "Follows incentives and who pays for what."
+  "lens": "Follows incentives and who pays for what.",
+  "persona": "A market analyst who follows who pays and who gains.",
+  "inspirations": [
+   "Adam Smith"
+  ],
+  "prefers": "Clear payback and aligned incentives"
  },
  {
-  "id": "wedgwood",
+  "id": "manufacturer",
   "name": "The Manufacturer",
-  "inspired_by": "Josiah Wedgwood",
+  "inspired_by": "Quality at volume",
   "field": "business",
-  "lens": "Cares about repeatable quality at scale."
+  "lens": "Cares about repeatable quality at scale.",
+  "persona": "A factory owner who has scaled one product to millions.",
+  "inspirations": [
+   "Taiichi Ohno"
+  ],
+  "prefers": "Work that fits how suppliers already operate"
  },
  {
-  "id": "franklin",
+  "id": "pragmatist",
   "name": "The Pragmatist",
-  "inspired_by": "Benjamin Franklin",
+  "inspired_by": "What works by Tuesday",
   "field": "business",
-  "lens": "Wants a cheap trial before a big commitment."
+  "lens": "Wants a cheap trial before a big commitment.",
+  "persona": "A small-town printer and civic organizer.",
+  "inspirations": [
+   "Benjamin Franklin"
+  ],
+  "prefers": "Small pilots with a comparison baseline"
  },
  {
-  "id": "nightingale",
+  "id": "operator",
   "name": "The Operator",
-  "inspired_by": "Florence Nightingale",
+  "inspired_by": "Data that saves lives",
   "field": "operations",
-  "lens": "Reads the numbers on the ground and fixes the process."
+  "lens": "Reads the numbers on the ground and fixes the process.",
+  "persona": "A head nurse who runs a ward on checklists and charts.",
+  "inspirations": [
+   "Andy Grove"
+  ],
+  "prefers": "Clear owners, limits and handoffs"
  },
  {
-  "id": "brunel",
+  "id": "engineer",
   "name": "The Engineer",
-  "inspired_by": "Isambard Kingdom Brunel",
+  "inspired_by": "Load, margin and failure",
   "field": "operations",
-  "lens": "Checks the load the system must carry."
+  "lens": "Checks the load the system must carry.",
+  "persona": "A bridge engineer who designs for the worst storm.",
+  "inspirations": [
+   "Isambard Kingdom Brunel"
+  ],
+  "prefers": "Fail-safes and fallbacks for every path"
  },
  {
-  "id": "suntzu",
+  "id": "strategist",
   "name": "The Strategist",
-  "inspired_by": "Sun Tzu",
+  "inspired_by": "Positioning before action",
   "field": "operations",
-  "lens": "Weighs position, timing and what the other side will do."
+  "lens": "Weighs position, timing and what the other side will do.",
+  "persona": "A former logistics officer who plans for the opponent.",
+  "inspirations": [
+   "Sun Tzu"
+  ],
+  "prefers": "Positions competitors cannot easily copy"
  },
  {
-  "id": "tubman",
+  "id": "guide",
   "name": "The Guide",
-  "inspired_by": "Harriet Tubman",
+  "inspired_by": "Getting everyone through safely",
   "field": "operations",
-  "lens": "Plans for the route failing and keeps people safe."
+  "lens": "Plans for the route failing and keeps people safe.",
+  "persona": "A community organizer who walks people through hard routes.",
+  "inspirations": [
+   "Fred Rogers"
+  ],
+  "prefers": "A person within reach at every step"
  },
  {
-  "id": "confucius",
+  "id": "steward",
   "name": "The Steward",
-  "inspired_by": "Confucius",
+  "inspired_by": "Duty and good order",
   "field": "ethics",
-  "lens": "Asks whether roles and duties stay clear."
+  "lens": "Asks whether roles and duties stay clear.",
+  "persona": "A school principal who cares about roles and trust.",
+  "inspirations": [
+   "Elinor Ostrom"
+  ],
+  "prefers": "Separation of duties, named accountability"
  },
  {
-  "id": "mill",
+  "id": "utilitarian",
   "name": "The Utilitarian",
-  "inspired_by": "John Stuart Mill",
+  "inspired_by": "The greatest good, counted",
   "field": "ethics",
-  "lens": "Weighs total benefit against harm to anyone."
+  "lens": "Weighs total benefit against harm to anyone.",
+  "persona": "A policy researcher who weighs harms and benefits.",
+  "inspirations": [
+   "John Stuart Mill"
+  ],
+  "prefers": "The widest benefit for the people doing the work"
  },
  {
-  "id": "wollstonecraft",
+  "id": "advocate",
   "name": "The Advocate",
-  "inspired_by": "Mary Wollstonecraft",
+  "inspired_by": "Equal standing for everyone",
   "field": "ethics",
-  "lens": "Speaks for the people with the least say."
+  "lens": "Speaks for the people with the least say.",
+  "persona": "A rights lawyer who asks who is left out.",
+  "inspirations": [
+   "Ralph Nader"
+  ],
+  "prefers": "Equal treatment for every customer"
  },
  {
-  "id": "davinci",
+  "id": "polymath",
   "name": "The Polymath",
-  "inspired_by": "Leonardo da Vinci",
+  "inspired_by": "Curiosity across fields",
   "field": "design",
-  "lens": "Sketches alternatives before settling."
+  "lens": "Sketches alternatives before settling.",
+  "persona": "A designer who sketches in five disciplines at once.",
+  "inspirations": [
+   "Leonardo da Vinci"
+  ],
+  "prefers": "Borrowing a proven pattern from another field"
  },
  {
-  "id": "morris",
+  "id": "craftsman",
   "name": "The Craftsman",
-  "inspired_by": "William Morris",
+  "inspired_by": "Things made well, by hand",
   "field": "design",
-  "lens": "Wants it useful and good to use."
+  "lens": "Wants it useful and good to use.",
+  "persona": "A furniture maker who hates shoddy work.",
+  "inspirations": [
+   "William Morris"
+  ],
+  "prefers": "Simple, finished work over clever features"
  },
  {
-  "id": "vitruvius",
+  "id": "architect",
   "name": "The Architect",
-  "inspired_by": "Vitruvius",
+  "inspired_by": "Firmness, use and delight",
   "field": "design",
-  "lens": "Balances sturdiness, usefulness and delight."
+  "lens": "Balances sturdiness, usefulness and delight.",
+  "persona": "A building architect who wants it sturdy, useful and beautiful.",
+  "inspirations": [
+   "Christopher Alexander"
+  ],
+  "prefers": "Designs with clear structure and few moving parts"
  },
  {
-  "id": "bach",
+  "id": "composer",
   "name": "The Composer",
-  "inspired_by": "Johann Sebastian Bach",
+  "inspired_by": "Structure under the beauty",
   "field": "arts",
-  "lens": "Looks for structure that holds many voices together."
+  "lens": "Looks for structure that holds many voices together.",
+  "persona": "A church organist who builds harmony from many voices.",
+  "inspirations": [
+   "Johann Sebastian Bach"
+  ],
+  "prefers": "Parts that each play to their strength"
  },
  {
-  "id": "austen",
+  "id": "novelist",
   "name": "The Novelist",
-  "inspired_by": "Jane Austen",
+  "inspired_by": "Character and plain speech",
   "field": "arts",
-  "lens": "Notices how people will really react."
+  "lens": "Notices how people will really react.",
+  "persona": "A writer who notices what people say versus what they mean.",
+  "inspirations": [
+   "George Orwell"
+  ],
+  "prefers": "Plain words that a busy reader finishes"
  }
 ]

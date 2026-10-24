@@ -4,10 +4,10 @@ const fsFetch = async p => ({ json: async () => JSON.parse(await readFile(new UR
 const { personas, ideas } = await loadAll(fsFetch);
 test("20 distinct personas, each labeled inspired-by, across six fields", () => {
   assert.equal(personas.length, 20); assert.equal(new Set(personas.map(p => p.id)).size, 20);
-  assert.ok(personas.every(p => p.inspired_by && p.lens));
+  assert.ok(personas.every(p => p.inspired_by && p.lens && p.persona));
   assert.deepEqual([...new Set(personas.map(p => p.field))].sort(), ["arts", "business", "design", "ethics", "operations", "science"]);
 });
-test("both sample ideas validate", () => { for (const i of ideas) assert.deepEqual(validate(i, personas), []); });
+test("four sample ideas validate", () => { assert.equal(ideas.length, 4); for (const i of ideas) assert.deepEqual(validate(i, personas), []); });
 test("timeline: card evolves each round, six gates, ends on final", () => {
   for (const i of ideas) {
     const t = timeline(i), cards = t.filter(e => e.kind === "card");

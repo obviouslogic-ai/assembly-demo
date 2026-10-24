@@ -1,0 +1,225 @@
+{
+ "sample": true,
+ "title": "Sample idea: automate client onboarding",
+ "idea": "Replace the onboarding calls with an automated email sequence and a self-serve setup form for every new client.",
+ "rounds": [
+  {
+   "name": "Opening positions",
+   "notes": [
+    [
+     "operator",
+     "support",
+     "Onboarding eats two weeks of account manager time per client. I'd automate the paperwork part today.",
+     ""
+    ],
+    [
+     "guide",
+     "push",
+     "I think it should be this way: big clients still get a person. Nobody wants a form after signing a six-figure contract.",
+     "operator"
+    ],
+    [
+     "measurer",
+     "push",
+     "Which steps actually stall? I'd measure where clients drop off before we automate anything.",
+     "operator"
+    ],
+    [
+     "novelist",
+     "refine",
+     "Emails alone read as cold. Each one should say who to call.",
+     ""
+    ],
+    [
+     "economist",
+     "support",
+     "If setup time halves, revenue starts two weeks sooner. That pays for the build.",
+     ""
+    ]
+   ],
+   "card": "Automate the onboarding paperwork and setup form for every client, with a named contact in each email.",
+   "credits": [
+    [
+     "operator",
+     "Automate the onboarding paperwork"
+    ],
+    [
+     "novelist",
+     "a named contact in each email"
+    ]
+   ]
+  },
+  {
+   "name": "Pushback and concessions",
+   "notes": [
+    [
+     "operator",
+     "concede",
+     "Fair. Clients over a set contract size keep a kickoff call, everything else goes self-serve.",
+     "guide"
+    ],
+    [
+     "programmer",
+     "push",
+     "A form that accepts anything just moves the errors downstream. Validate data at entry.",
+     "operator"
+    ],
+    [
+     "engineer",
+     "refine",
+     "If the sequence stalls, it must hand off to a person after three days of silence.",
+     "programmer"
+    ],
+    [
+     "measurer",
+     "concede",
+     "I'll accept starting now if we track time-to-first-value per client from day one.",
+     "economist"
+    ],
+    [
+     "advocate",
+     "push",
+     "Smaller clients get the robot and big ones get people? Give every client a call on request.",
+     "operator"
+    ]
+   ],
+   "card": "Self-serve onboarding with validated forms for most clients, a kickoff call for large accounts or on request, and a person stepping in after three quiet days.",
+   "credits": [
+    [
+     "programmer",
+     "validated forms"
+    ],
+    [
+     "guide",
+     "a kickoff call for large accounts"
+    ],
+    [
+     "advocate",
+     "or on request"
+    ],
+    [
+     "engineer",
+     "a person stepping in after three quiet days"
+    ]
+   ]
+  },
+  {
+   "name": "Best version",
+   "notes": [
+    [
+     "pragmatist",
+     "refine",
+     "Pilot with next month's new clients only and compare against last quarter.",
+     ""
+    ],
+    [
+     "architect",
+     "support",
+     "Validated intake, human fallback, clear trigger. That's a sturdy design.",
+     "pragmatist"
+    ],
+    [
+     "strategist",
+     "doubt",
+     "Competitors sell white-glove onboarding. Keep that promise visible in the sales pitch.",
+     "economist"
+    ]
+   ],
+   "card": "Pilot with next month's clients: validated self-serve setup, a call for large accounts or on request, handoff after three quiet days, time-to-first-value tracked.",
+   "credits": [
+    [
+     "pragmatist",
+     "Pilot with next month's clients"
+    ],
+    [
+     "measurer",
+     "time-to-first-value tracked"
+    ]
+   ]
+  }
+ ],
+ "vote": {
+  "proceed": 14,
+  "revise": 5,
+  "kill": 1
+ },
+ "gates": [
+  {
+   "gate": "Business value",
+   "status": "pass",
+   "finding": "Roughly two weeks of staff time back per client.",
+   "change": "None."
+  },
+  {
+   "gate": "Feasibility",
+   "status": "pass",
+   "finding": "Forms and email tools already in use.",
+   "change": "None."
+  },
+  {
+   "gate": "Risk and safety",
+   "status": "revise",
+   "finding": "Client data entered wrong could reach billing.",
+   "change": "Billing fields need a human check before first invoice."
+  },
+  {
+   "gate": "Cost",
+   "status": "pass",
+   "finding": "Built with existing tools.",
+   "change": "None."
+  },
+  {
+   "gate": "Human impact",
+   "status": "pass",
+   "finding": "Every client can still ask for a person.",
+   "change": "None."
+  },
+  {
+   "gate": "Clarity",
+   "status": "revise",
+   "finding": "The three-day rule was unclear.",
+   "change": "Define quiet as no form progress and no reply."
+  }
+ ],
+ "final": "For next month's new clients: a validated self-serve setup form and email sequence, a kickoff call for large accounts or anyone who asks, and a person stepping in after three days with no progress or reply. Billing fields get a human check before the first invoice, and time-to-first-value is tracked against last quarter.",
+ "changed": [
+  "Large accounts keep a kickoff call",
+  "Anyone can ask for a person",
+  "Validated data at entry",
+  "Human handoff after three quiet days",
+  "Billing check before the first invoice",
+  "Piloted and measured first"
+ ],
+ "dissent": "The Strategist thinks self-serve weakens the white-glove promise and wants sales to keep selling it.",
+ "readiness": "Ready for a one-month pilot",
+ "final_credits": [
+  [
+   "pragmatist",
+   "For next month's new clients"
+  ],
+  [
+   "programmer",
+   "a validated self-serve setup form"
+  ],
+  [
+   "guide",
+   "a kickoff call for large accounts"
+  ],
+  [
+   "advocate",
+   "or anyone who asks"
+  ],
+  [
+   "engineer",
+   "a person stepping in after three days with no progress or reply"
+  ],
+  [
+   "gate:Risk and safety",
+   "Billing fields get a human check before the first invoice"
+  ],
+  [
+   "measurer",
+   "time-to-first-value is tracked against last quarter"
+  ]
+ ]
+}

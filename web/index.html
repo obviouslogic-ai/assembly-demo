@@ -1,78 +1,176 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Assembly · ObviousLogic demos</title><link rel="stylesheet" href="kit/kit.css">
 <style>
-.work{display:grid;grid-template-columns:1.55fr 1fr;gap:3vw}
-.left{display:grid;grid-template-rows:minmax(0,1fr) auto;min-height:0}
-#amph{position:relative;min-height:0}
-.seat{position:absolute;width:86px;transform:translate(-50%,-50%);text-align:center;opacity:.35;transition:opacity .5s}
-.seat i{display:block;width:8px;height:8px;margin:0 auto 4px;border-radius:50%;background:var(--dim);transition:background .5s,box-shadow .5s}
-.seat b{font:600 9px Barlow,sans-serif;letter-spacing:.12em;text-transform:uppercase;display:block;line-height:1.2}
-.seat small{font:8px/1.2 var(--mono);color:var(--dim);display:block}
-.seat.on{opacity:1}.seat.support i{background:var(--ok)}.seat.doubt i{background:var(--bad)}.seat.refine i{background:var(--accent)}
-.seat.speak i{box-shadow:0 0 0 6px #ffffff1c}
-#say{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(440px,70%);text-align:center;font-size:15px;line-height:1.45;min-height:64px}
-#say b{display:block;font:10px var(--mono);letter-spacing:.16em;text-transform:uppercase;font-weight:400;margin-bottom:4px}
-#cardwrap{padding-top:8px;background:linear-gradient(var(--faint),var(--faint)) top/100% 1px no-repeat}
-#card{font-size:17px;line-height:1.45;min-height:3em;transition:opacity .3s}#card.flash{opacity:.15}
-#ver{color:var(--accent)}
-.right{display:flex;flex-direction:column;min-height:0;overflow:hidden}
-.gate{display:grid;grid-template-columns:1fr auto;column-gap:12px;padding:4px 0;opacity:.3;transition:opacity .5s}
-.gate.on{opacity:1}.gate .h{font-size:12px}.gate .st{font:10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-.gate .bar{grid-column:1/3;height:2px;background:var(--faint);margin-top:6px;transition:background .5s}
-.gate p{grid-column:1/3;font-size:12px;line-height:1.35;color:var(--dim);margin:4px 0 0}
-.gate.pass .bar{background:var(--ok)}.gate.pass .st{color:var(--ok)}.gate.revise .bar{background:var(--accent)}.gate.revise .st{color:var(--accent)}.gate.fail .bar,.gate.fail .st{color:var(--bad);background:none}
-.gate.fail .bar{background:var(--bad)}
-#final{display:none;margin-top:10px}#final.show{display:block;animation:rise .7s ease}@keyframes rise{from{opacity:0;transform:translateY(8px)}}
-#final ul{margin:4px 0 6px;padding-left:16px;font-size:12px;color:var(--dim);line-height:1.4}#dissent{font-size:12px;color:var(--dim);margin:2px 0}
-#tally span{margin-right:18px}
+.work{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(12px,2.4vw,40px)}
+/* The room: a conference table seen from above, twenty seats around it. */
+#room{position:relative;min-height:0;container-type:size}
+#table{position:absolute;left:15%;right:15%;top:21%;bottom:21%;border-radius:clamp(14px,6cqh,60px);background:radial-gradient(ellipse at 50% 40%,#161a22,#0e1016 70%);box-shadow:inset 0 0 0 1px #2a2e36,0 0 60px #9db8ff0d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3em;text-align:center;padding:4%}
+#table .tele{font-size:clamp(8px,2.4cqh,11px)}
+#tver{font:600 clamp(14px,min(9cqh,7cqw),54px)/1 Barlow,sans-serif;letter-spacing:.14em;color:var(--accent);transition:color .4s}
+#tver.bump{color:var(--fg)}
+.seat{--s:clamp(20px,min(6.4cqw,11cqh),46px);position:absolute;width:var(--s);height:var(--s);transform:translate(-50%,-50%);margin:0;padding:0;border-radius:50%;
+ background:#12151b;box-shadow:inset 0 0 0 1px #3a3e46;color:var(--dim);font:600 calc(var(--s)*.3) Barlow,sans-serif;letter-spacing:.06em;display:grid;place-items:center;cursor:help;transition:box-shadow .4s,color .4s,background .4s;opacity:.55}
+.seat:hover,.seat:focus-visible,.seat.open{outline:0;box-shadow:inset 0 0 0 2px var(--accent);color:var(--fg);opacity:1}
+.seat.on{opacity:1;color:var(--fg)}
+.seat.support{box-shadow:inset 0 0 0 2px var(--ok)}.seat.concede{box-shadow:inset 0 0 0 2px #E7C66B}.seat.push,.seat.doubt{box-shadow:inset 0 0 0 2px var(--bad)}.seat.refine{box-shadow:inset 0 0 0 2px var(--accent)}
+.seat.speak{background:#232838;box-shadow:inset 0 0 0 2px var(--fg),0 0 0 calc(var(--s)*.18) #ffffff14}
+.seat.to{background:#1b2030}
+.seat .lab{display:none;position:absolute;white-space:nowrap;font:600 9px Barlow,sans-serif;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;pointer-events:none}
+.seat.r-top .lab{top:100%;margin-top:4px;left:50%;transform:translateX(-50%)}.seat.r-bot .lab{bottom:100%;margin-bottom:4px;left:50%;transform:translateX(-50%)}
+.seat.r-left .lab{left:100%;margin-left:6px;top:50%;transform:translateY(-50%)}.seat.r-right .lab{right:100%;margin-right:6px;top:50%;transform:translateY(-50%)}
+@container (min-width:760px) and (min-height:330px){.seat .lab{display:block}}
+.paper{position:absolute;width:clamp(10px,2.4cqw,18px);height:clamp(8px,1.8cqw,13px);background:#F4F4F2;border-radius:2px;transform:translate(-50%,-50%) rotate(-8deg);box-shadow:0 2px 8px #0008;pointer-events:none;transition:left .7s cubic-bezier(.5,0,.3,1),top .7s cubic-bezier(.5,0,.3,1),opacity .3s;z-index:3}
+.paper.push,.paper.doubt{background:var(--bad)}.paper.concede{background:#E7C66B}.paper.support{background:var(--ok)}.paper.refine{background:var(--accent)}
+#card-pop{position:fixed;z-index:50;width:min(290px,92vw);max-height:92dvh;overflow:auto;background:#0d0f13f5;box-shadow:0 0 0 1px #2a2e36,0 10px 30px #000a;padding:12px 14px;font-size:13px;line-height:1.4;color:var(--dim);display:none}
+#card-pop.show{display:block}#card-pop b{display:block;color:var(--fg);font:600 13px Barlow,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+#card-pop p{margin:0 0 6px}#card-pop .tele{font-size:10px}
+/* The panel: the idea card, the note being passed, the gates and the outcome. */
+#panel{display:flex;flex-direction:column;gap:.7em;min-height:0;font-size:calc(15px * var(--k,1))}
+#card{font-size:1.06em;line-height:1.42;transition:opacity .3s}#card.flash{opacity:.2}
+#card mark{background:none;color:var(--accent)}
+#say{min-height:3.6em;font-size:.94em;line-height:1.4;padding-left:12px;background:linear-gradient(var(--faint),var(--faint)) left/1px 100% no-repeat}
+#say .who{display:block;font:.7em var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
+#gates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5em 1em}
+.gate{opacity:.35;transition:opacity .5s;min-width:0}.gate.on{opacity:1}
+.gate .h{font-size:.68em;letter-spacing:.1em;display:block;line-height:1.25}
+.gate .st{font:.62em var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.gate .bar{height:2px;background:var(--faint);margin-top:3px;transition:background .5s}
+.gate.pass .bar{background:var(--ok)}.gate.pass .st{color:var(--ok)}.gate.revise .bar{background:var(--accent)}.gate.revise .st{color:var(--accent)}.gate.fail .bar{background:var(--bad)}.gate.fail .st{color:var(--bad)}
+#final{display:none}#final.show{display:block;animation:rise .7s ease}@keyframes rise{from{opacity:0}}
+#changed{margin:.2em 0 .4em;padding:0;list-style:none;font-size:.8em;color:var(--dim);line-height:1.45}#changed li::before{content:"+ ";color:var(--ok)}
+#dissent{font-size:.8em;color:var(--dim);margin:0}
+#tally span{margin-right:1em}
+.sub{margin-top:.35em}.sub b{color:var(--accent)}
+#steps span{margin-right:.9em;color:var(--faint)}#steps span.done{color:var(--dim)}#steps span.now{color:var(--accent)}
+#card mark.cr{color:var(--fg);background:linear-gradient(var(--dim),var(--dim)) bottom/100% 1px no-repeat}#card mark.cr.fresh{color:var(--accent);background-image:linear-gradient(var(--accent),var(--accent))}
+#card mark.cr sup{font:600 .55em var(--mono);letter-spacing:.06em;color:var(--dim);margin-left:.15em;vertical-align:.5em}#card mark.cr.fresh sup{color:var(--accent)}#card mark.gate sup{color:#E7C66B}#card mark.cr.gate{color:#E7C66B;background-image:linear-gradient(#E7C66B,#E7C66B)}
+#card mark.cr:hover{color:var(--fg);cursor:help}
+#obj{font:.7em var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}#obj b{color:var(--bad)}#obj i{font-style:normal;color:var(--ok)}
+.gate .why{display:block;font-size:.66em;color:var(--dim);line-height:1.3;margin-top:.15em}
+@media (max-width:600px),(max-height:700px),(max-aspect-ratio:1/1) and (max-height:1100px){.gate .why{display:none}}
+#objs{margin:.2em 0 .3em;font:.68em/1.6 var(--mono);color:var(--dim)}#objs span{margin-right:1.1em;white-space:nowrap}#objs .ok{color:var(--ok)}#objs .no{color:var(--bad)}
+.seat.made::after{content:"";position:absolute;top:-2px;right:-2px;width:calc(var(--s)*.22);height:calc(var(--s)*.22);border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--bg,#0a0b0d)}
+#card-pop .cfg{margin:6px 0 0;font:9px var(--mono);letter-spacing:.16em;color:#6b7080}#card-pop ul{margin:2px 0 6px;padding-left:1em}#card-pop li{margin:0 0 2px}#card-pop li em{font-style:normal;color:var(--accent)}
+body[data-done] #say{display:none}
+.act label{color:var(--fg);margin-right:.8em}
+#pick{font-size:clamp(14px,1vw + .5dvh,17px);padding:8px 26px 8px 0;max-width:100%;margin:0;background:linear-gradient(45deg,transparent 50%,var(--dim) 50%) right 8px center/7px 7px no-repeat;-webkit-appearance:none;appearance:none;border-bottom:1px solid var(--dim)}
+.act .stepn{color:var(--accent)}
+/* Narrow or portrait screens: the room on top, the panel below. */
+@media (max-width:860px),(max-aspect-ratio:1/1){
+ .work{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(100px,1fr) max-content}
+ #gates{grid-template-columns:repeat(6,minmax(0,1fr));gap:.4em .6em}
+ #changed li{display:inline;margin-right:.8em}
+ .act{gap:6px 18px}.act .pickwrap{flex:1 1 100%;display:flex;align-items:center;gap:10px}#pick{flex:1;min-width:0}
+}
+@media (max-width:520px){#gates{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-height:520px) and (min-aspect-ratio:1/1){.work{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}#gates{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#changed,body[data-done] #obj{display:none}
+@media (max-height:700px){body[data-done] #steps,#objs .how{display:none}#objs span{margin-right:.7em}}
+@media (max-height:520px){.sub{display:none}body[data-done] #dissent{display:none}}
+@media (max-height:700px) and (orientation:portrait){.sub{display:none}}
 </style></head><body class="stage">
 <main class="stage-main">
-<div><div class="tele" data-kit-tele></div><h1>Twenty minds make one idea better before it costs anything</h1></div>
+<div><div class="tele" data-kit-tele></div><h1>Twenty minds make one idea better before it costs anything</h1><div class="tele sub"><b>SCRIPTED DEMO</b> / REPRESENTS A WORKING SESSION I RUN EVERY DAY</div></div>
 <div class="work">
- <div class="left"><div id="amph"><div id="say">Pick a sample idea and submit it to the Assembly.</div></div>
-  <div id="cardwrap"><div class="tele">IDEA CARD <b id="ver">V0</b> &nbsp; PHASE <b id="stat">-</b> &nbsp; <span id="tally"></span></div><div id="card"></div></div></div>
- <div class="right"><div class="tele">REFINEMENT GATES / PASS · REVISE · FAIL</div><div id="track"></div>
-  <div id="final"><div class="tele">FINAL / <b id="ready"></b></div><ul id="changed"></ul><div class="tele">DISSENT ON RECORD</div><p id="dissent"></p></div></div>
+ <div id="room" data-nofit aria-label="Conference table with twenty seats"><div id="table"><div class="tele">WORKING SESSION</div><div id="tver">V0</div><div class="tele" id="tphase">WAITING TO START</div></div><div id="card-pop" role="tooltip"></div></div>
+ <div id="panel" data-fit>
+  <div class="tele" id="steps"></div>
+  <div><div class="tele">IDEA CARD <b id="ver">V0</b> &nbsp; <span id="stat">NOT STARTED</span> &nbsp; <span id="tally"></span></div><div id="card"></div></div>
+  <div id="obj"></div>
+  <div id="say">Hover or tap any seat to meet the twenty people at the table.</div>
+  <div><div class="tele" style="margin-bottom:.4em">REFINEMENT GATES</div><div id="gates"></div></div>
+  <div id="final"><div class="tele">OUTCOME / <b id="ready"></b></div><ul id="changed"></ul><div id="objs"></div><p id="dissent"></p></div>
+ </div>
 </div>
-<div class="act"><select id="pick" aria-label="Sample idea"></select><button class="big" id="go">Submit idea to the Assembly</button><span class="verdict" id="out"></span></div>
+<div class="act"><span class="pickwrap"><label class="tele" for="pick"><span class="stepn">1</span> PICK AN IDEA</label><select id="pick"></select></span><button class="big" id="go"><span class="stepn">2</span>&nbsp; Start the session</button><span class="verdict" id="out"></span></div>
 </main>
-<template id="info"><p>In Palladium, a contested idea goes to an assembly of very different thinkers. They refine it over rounds and vote, then the survivor passes a fixed set of refinement gates. Out comes a better version, what changed, and the dissent on record. This page replays two hand-written samples.</p>
-<p>Seats are fictional personas <em>inspired by</em> public-domain historical figures. Their lines were written for this demo and are not quotes.</p>
+<template id="info"><p>In Palladium, a contested idea goes to a working session before it costs anything. Picture twenty very different people around one conference table. Over two or three rounds they push back, concede and pass notes until the idea is at its best version. They vote, and the survivor passes six refinement gates. Out comes a better version, what changed, and the dissent on record.</p>
+<p>This is a scripted demo of a process I use every day. It replays four hand-written sample ideas. Every person at the table is an invented persona; some take inspiration from public figures, but none speaks for them, and every line was written for this demo. Hover or tap a seat to see their perspective and what they changed. Seat configurations stay private.</p>
 <div class="tele">WHY I BUILT THIS / DRAFT, PENDING DAN'S CONFIRMATION</div>
 <p>An idea gets stress-tested by many perspectives and checked against set gates before it costs anything.</p></template>
 <script type="module">
-import { loadAll, timeline, GATES } from "../assembly.js";
-import { mount, setStatus, sleep } from "./kit/kit.js";
+import { loadAll, timeline, objections, GATES } from "../assembly.js";
+import { mount, setStatus, sleep, autoFit } from "./kit/kit.js";
 mount("assembly-demo", { status: "READY" });
-const $ = id => document.getElementById(id);
-const { personas, ideas } = await loadAll(fetch, "../"), seat = {};
-$("pick").innerHTML = ideas.map((d, i) => `<option value="${i}">${d.title}</option>`).join("");
-personas.forEach((p, i) => { const a = Math.PI * (1 - i / (personas.length - 1)), el = document.createElement("div");
-  el.className = "seat"; const r = i % 2 ? .62 : 1; el.style.left = 50 + 46 * r * Math.cos(a) + "%"; el.style.top = 78 - 70 * r * Math.sin(a) + "%";
-  el.innerHTML = `<i></i><b>${p.name.replace("The ", "")}</b><small>${p.inspired_by}</small>`; el.title = `${p.name}, inspired by ${p.inspired_by}. ${p.lens}`; $("amph").append(el); seat[p.id] = el; });
-const name = id => personas.find(p => p.id === id).name;
-const track = () => $("track").innerHTML = GATES.map(g => `<div class="gate"><span class="h">${g}</span><span class="st">waiting</span><div class="bar"></div><p></p></div>`).join("");
-const reset = () => { track(); $("final").classList.remove("show"); $("tally").textContent = ""; $("out").textContent = ""; $("stat").textContent = "-"; $("ver").textContent = "V0";
-  $("card").textContent = ideas[$("pick").value].idea; Object.values(seat).forEach(s => s.className = "seat"); $("say").textContent = "Pick a sample idea and submit it to the Assembly."; };
-let busy = false;
+const $ = id => document.getElementById(id), room = $("room"), pop = $("card-pop");
+const { personas, ideas } = await loadAll(fetch, "../"), seat = {}, byId = Object.fromEntries(personas.map(p => [p.id, p]));
+const label = p => p.name.replace("The ", "");
+$("pick").innerHTML = ideas.map((d, i) => `<option value="${i}">${d.title.replace("Sample idea: ", "")}</option>`).join("");
+// Seats: seven along each long side, three at each end.
+const spots = [...Array(7)].map((_, i) => [20 + i * 10, 9, "top"]).concat([...Array(3)].map((_, i) => [94, 30 + i * 20, "right"]),
+  [...Array(7)].map((_, i) => [80 - i * 10, 91, "bot"]), [...Array(3)].map((_, i) => [6, 70 - i * 20, "left"]));
+personas.forEach((p, i) => { const el = document.createElement("button"), [x, y, r] = spots[i];
+  el.className = "seat r-" + r; el.style.left = x + "%"; el.style.top = y + "%"; el.dataset.x = x; el.dataset.y = y;
+  el.innerHTML = `${label(p).slice(0, 3).toUpperCase()}<span class="lab">${label(p)}</span>`; el.setAttribute("aria-label", `${p.name}: ${p.persona}`);
+  el.onmouseenter = el.onfocus = () => { show(p, el); pop.dataset.by = "hover"; }; el.onmouseleave = el.onblur = hide;
+  el.onclick = e => { e.stopPropagation(); if (el.classList.contains("open") && pop.dataset.by === "click") hide(); else { show(p, el); pop.dataset.by = "click"; } };
+  room.append(el); seat[p.id] = el; });
+function show(p, el) {
+  Object.values(seat).forEach(s => s.classList.remove("open")); el.classList.add("open");
+  pop.innerHTML = `<b>${p.name}</b><p>${p.persona}</p><p><span class="tele">PERSPECTIVE</span><br>${p.lens}</p><p><span class="tele">PREFERS</span><br>${p.prefers}</p><p><span class="tele">INSPIRED BY</span><br>${p.inspirations.join(", ")} <span style="color:#6b7080">/ ${p.inspired_by.toLowerCase()}</span></p>${impact(p.id)}<div class="cfg">SEAT CONFIGURATION PRIVATE</div>`;
+  pop.classList.add("show"); const S = el.getBoundingClientRect(), W = pop.offsetWidth, H = pop.offsetHeight, VW = innerWidth, VH = innerHeight;
+  let x = S.left + S.width / 2 - W / 2, y = S.bottom + 8; if (y + H > VH - 4) y = S.top - H - 8;
+  pop.style.left = Math.max(4, Math.min(VW - W - 4, x)) + "px"; pop.style.top = Math.max(4, Math.min(VH - H - 4, y)) + "px"; }
+// What this seat did in the selected idea: what it pushed on, what it changed, what it gave up.
+function impact(id) {
+  const idea = ideas[$("pick").value], cut = t => t.length > 90 ? t.slice(0, 88) + "…" : t, li = [];
+  idea.rounds.forEach((r, i) => r.notes.forEach(([s, st, t]) => { if (s !== id) return;
+    if (st === "push" || st === "doubt") li.push(`R${i + 1} pushed on: ${cut(t)}`); if (st === "concede") li.push(`R${i + 1} conceded: ${cut(t)}`); }));
+  idea.rounds.forEach((r, i) => (r.credits || []).forEach(([s, ph]) => { if (s === id) li.push(`R${i + 1} changed the card: <em>${ph}</em>`); }));
+  objections(idea).filter(o => o.resolved && o.resolved.seat === id && o.seat !== id && o.resolved.how !== "changed the card").forEach(o => li.push(`R${o.resolved.round} ${o.resolved.how} ${label(byId[o.seat])}'s objection`));
+  const t = idea.title.replace("Sample idea: ", "");
+  return `<p style="margin:0"><span class="tele">IN THIS SESSION / ${t.toUpperCase()}</span></p>` + (li.length ? `<ul>${li.map(x => `<li>${x}</li>`).join("")}</ul>` : `<p>Listened this time and voted. No note on this idea.</p>`); }
+function hide() { pop.classList.remove("show"); Object.values(seat).forEach(s => s.classList.remove("open")); }
+document.addEventListener("click", hide);
+const pass = async (from, to, stance) => { const a = seat[from], b = to ? seat[to] : null, n = document.createElement("div");
+  n.className = "paper " + stance; n.style.left = a.dataset.x + "%"; n.style.top = a.dataset.y + "%"; room.append(n); await sleep(30);
+  n.style.left = (b ? b.dataset.x : 50) + "%"; n.style.top = (b ? b.dataset.y : 50) + "%"; await sleep(750); n.style.opacity = 0; setTimeout(() => n.remove(), 400); };
+// Mark each phrase on the card with the seat (or gate) whose note put it there.
+const abbr = s => s.startsWith("gate:") ? "GATE" : label(byId[s]).slice(0, 3).toUpperCase();
+const who = s => s.startsWith("gate:") ? s.slice(5) + " gate" : byId[s].name;
+const esc = t => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+function credited(text, credits, fresh) { let html = esc(text);
+  for (const [s, ph] of credits) html = html.replace(esc(ph), `<mark class="cr${fresh ? " fresh" : ""}${s.startsWith("gate:") ? " gate" : ""}" data-seat="${s}" title="Changed by ${who(s)}">${esc(ph)}<sup>${abbr(s)}</sup></mark>`);
+  return html; }
+$("card").addEventListener("mouseover", e => { const m = e.target.closest("mark[data-seat]"); Object.values(seat).forEach(x => x.classList.remove("open")); if (m && seat[m.dataset.seat]) seat[m.dataset.seat].classList.add("open"); });
+$("card").addEventListener("mouseleave", () => Object.values(seat).forEach(x => x.classList.remove("open")));
+const STEPS = n => ["R1", "R2", "R3"].slice(0, n).concat("VOTE", "GATES");
+const step = (n, at) => $("steps").innerHTML = "SESSION &nbsp;" + STEPS(n).map((s, i) => `<span class="${i < at ? "done" : i === at ? "now" : ""}">${s}</span>`).join("");
+let objs = [], openN = 0, doneN = 0;
+const objLine = () => $("obj").innerHTML = objs.length || openN ? `OBJECTIONS &nbsp;<b>${openN} OPEN</b> &nbsp;<i>${doneN} RESOLVED</i>` : "OBJECTIONS &nbsp;NONE YET";
+const VERB = { support: "supports", doubt: "doubts", refine: "refines", push: "pushes back", concede: "concedes" };
+const COL = { support: "ok", doubt: "bad", push: "bad", refine: "accent", concede: "fg" };
+const track = () => $("gates").innerHTML = GATES.map(g => `<div class="gate"><span class="h">${g}</span><span class="st">waiting</span><span class="why">&nbsp;</span><div class="bar"></div></div>`).join("");
+const reset = () => { track(); const idea0 = ideas[$("pick").value]; objs = objections(idea0); openN = doneN = 0; objLine(); step(idea0.rounds.length, -1); Object.values(seat).forEach(s => s.classList.remove("made")); $("objs").innerHTML = ""; $("final").classList.remove("show"); $("tally").textContent = $("out").textContent = ""; $("stat").textContent = "NOT STARTED"; $("ver").textContent = $("tver").textContent = "V0";
+  $("tphase").textContent = "WAITING TO START"; $("card").textContent = ideas[$("pick").value].idea; Object.values(seat).forEach(s => s.className = s.className.split(" ").filter(c => c === "seat" || c.startsWith("r-")).join(" "));
+  $("say").textContent = "Hover or tap any seat to meet the twenty people at the table."; delete document.body.dataset.done; };
+const stance = el => ["support", "doubt", "refine", "push", "concede", "on", "speak", "to"].forEach(c => el.classList.remove(c));
+let busy = false, prevCard = "";
 async function play() {
-  if (busy) return; busy = true; reset(); $("go").disabled = $("pick").disabled = true; setStatus("IN SESSION"); delete document.body.dataset.done;
-  const idea = ideas[$("pick").value];
+  if (busy) return; busy = true; hide(); reset(); $("go").disabled = $("pick").disabled = true; setStatus("IN SESSION");
+  const idea = ideas[$("pick").value]; prevCard = idea.idea;
   for (const e of timeline(idea)) {
-    if (e.kind === "card") { $("card").classList.add("flash"); await sleep(250); $("card").textContent = e.text; $("ver").textContent = "V" + e.version; $("card").classList.remove("flash"); await sleep(1100); }
-    if (e.kind === "round") { $("stat").textContent = `ROUND ${e.n} / ${e.name.toUpperCase()}`; await sleep(400); }
-    if (e.kind === "note") { Object.values(seat).forEach(s => s.classList.remove("speak")); seat[e.seat].classList.add("on", e.stance, "speak");
-      $("say").innerHTML = `<b style="color:var(--${e.stance === "support" ? "ok" : e.stance === "doubt" ? "bad" : "accent"})">${name(e.seat)} / ${e.stance}</b>${e.text}`; await sleep(1500); }
-    if (e.kind === "vote") { $("stat").textContent = "VOTE"; Object.values(seat).forEach(s => s.classList.add("on")); $("say").textContent = "All twenty seats vote.";
-      $("tally").innerHTML = `<span style="color:var(--ok)">PROCEED ${e.proceed}</span><span style="color:var(--accent)">REVISE ${e.revise}</span><span style="color:var(--bad)">KILL ${e.kill}</span>`; await sleep(1400);
-      $("say").textContent = "The idea survives and goes to the gates."; }
-    if (e.kind === "gate") { $("stat").textContent = "GATE " + (e.n + 1) + " / " + e.gate.toUpperCase(); const g = $("track").children[e.n]; g.classList.add("on", "pulse"); await sleep(600);
-      g.classList.remove("pulse"); g.classList.add(e.status); g.querySelector(".st").textContent = e.status; g.querySelector("p").textContent = e.change !== "None." ? e.change : e.finding; await sleep(900); }
-    if (e.kind === "final") { $("stat").textContent = "DONE"; $("ver").textContent = "FINAL"; $("card").textContent = e.text; $("ready").textContent = e.readiness.toUpperCase();
-      $("changed").innerHTML = e.changed.map(c => `<li>${c}</li>`).join(""); $("dissent").textContent = e.dissent; $("final").classList.add("show"); document.querySelectorAll(".gate p").forEach(p => p.remove());
-      $("out").textContent = "Improved idea out. " + e.readiness; $("out").className = "verdict okc"; $("say").textContent = "The refined idea, what changed and the dissent are on record."; }
+    if (e.kind === "card") { if (!e.version) continue; $("card").classList.add("flash"); $("tver").classList.add("bump"); await sleep(250);
+      $("card").innerHTML = credited(e.text, e.credits, true); prevCard = e.text; e.credits.forEach(([s]) => seat[s] && seat[s].classList.add("made"));
+      const res = objs.filter(o => o.resolved && o.resolved.round === e.version); openN -= res.length; doneN += res.length; objLine(); $("ver").textContent = $("tver").textContent = "V" + e.version; $("card").classList.remove("flash");
+      $("say").innerHTML = `<span class="who" style="color:var(--accent)">Idea card updated</span>Round ${e.version}: ${e.credits.map(([s]) => abbr(s)).join(", ")} changed the highlighted parts.${res.length ? " Resolved: " + res.map(o => label(byId[o.seat])).join(", ") + "." : ""}`; await sleep(500); $("tver").classList.remove("bump"); await sleep(1300); }
+    if (e.kind === "round") { step(idea.rounds.length, e.n - 1); $("stat").textContent = $("tphase").textContent = `ROUND ${e.n} / ${e.name.toUpperCase()}`; await sleep(500); }
+    if (e.kind === "note") { Object.values(seat).forEach(s => s.classList.remove("speak", "to")); const s = seat[e.seat]; stance(s); s.classList.add("on", e.stance, "speak");
+      if (e.to) seat[e.to].classList.add("to"); if (e.stance === "push" || e.stance === "doubt") { openN++; objLine(); }
+      $("say").innerHTML = `<span class="who" style="color:var(--${COL[e.stance]})">${label(byId[e.seat])} ${VERB[e.stance]}${e.to ? " → " + label(byId[e.to]) : " → table"}</span>${e.text}`;
+      await pass(e.seat, e.to, e.stance); await sleep(1300); }
+    if (e.kind === "vote") { step(idea.rounds.length, idea.rounds.length); Object.values(seat).forEach(s => s.classList.remove("speak", "to")); $("stat").textContent = $("tphase").textContent = "VOTE"; Object.values(seat).forEach(s => s.classList.add("on"));
+      $("say").innerHTML = `<span class="who">Vote</span>All twenty people vote on the best version.`;
+      $("tally").innerHTML = `<span style="color:var(--ok)">PROCEED ${e.proceed}</span><span style="color:var(--accent)">REVISE ${e.revise}</span><span style="color:var(--bad)">KILL ${e.kill}</span>`; await sleep(1500); }
+    if (e.kind === "gate") { if (e.n === 0) step(idea.rounds.length, idea.rounds.length + 1); $("stat").textContent = $("tphase").textContent = "GATE " + (e.n + 1) + " / " + e.gate.toUpperCase(); const g = $("gates").children[e.n]; g.classList.add("on", "pulse"); await sleep(500);
+      g.classList.remove("pulse"); g.classList.add(e.status); g.querySelector(".st").textContent = e.status; const w = g.querySelector(".why"); w.textContent = e.status === "pass" ? e.finding : e.change; w.title = e.finding + (e.change !== "None." ? " Change: " + e.change : "");
+      $("say").innerHTML = `<span class="who" style="color:var(--${e.status === "pass" ? "ok" : e.status === "revise" ? "accent" : "bad"})">${e.gate} / ${e.status}</span>${e.change !== "None." ? e.change : e.finding}`; await sleep(1100); }
+    if (e.kind === "final") { $("stat").textContent = "DONE"; $("tphase").textContent = "BEST VERSION"; $("ver").textContent = $("tver").textContent = "FINAL"; step(idea.rounds.length, 99); $("card").innerHTML = credited(e.text, e.credits, false);
+      $("objs").innerHTML = "OBJECTIONS &nbsp;" + e.objections.map(o => `<span class="${o.resolved ? "ok" : "no"}" title="${esc(o.text)}">${abbr(o.seat)} ${o.resolved ? "✓ R" + o.resolved.round + `<span class="how"> ${o.resolved.how}${o.resolved.seat !== o.seat ? " by " + abbr(o.resolved.seat) : ""}</span>` : "→ dissent"}</span>`).join(" "); $("ready").textContent = e.readiness.toUpperCase();
+      $("changed").innerHTML = e.changed.map(c => `<li>${c}</li>`).join(""); $("dissent").textContent = "Dissent: " + e.dissent; $("final").classList.add("show");
+      $("out").textContent = e.readiness + "."; $("out").className = "verdict okc"; }
   }
-  setStatus("DONE"); $("go").textContent = "Replay"; $("go").disabled = $("pick").disabled = false; busy = false; document.body.dataset.done = "1";
+  setStatus("DONE"); $("go").innerHTML = '<span class="stepn">2</span>&nbsp; Run it again'; $("go").disabled = $("pick").disabled = false; busy = false; document.body.dataset.done = "1";
 }
-$("go").onclick = play; $("pick").onchange = reset; reset(); document.body.dataset.ready = "1";
+$("go").onclick = play; $("pick").onchange = () => { reset(); $("go").innerHTML = '<span class="stepn">2</span>&nbsp; Start the session'; }; reset(); autoFit(); document.body.dataset.ready = "1";
 </script></body></html>

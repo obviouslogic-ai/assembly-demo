@@ -1,0 +1,221 @@
+{
+ "sample": true,
+ "title": "Sample idea: a weekly KPI digest for leadership",
+ "idea": "Send leadership an automatic weekly email with every KPI from every department.",
+ "rounds": [
+  {
+   "name": "Opening positions",
+   "notes": [
+    [
+     "economist",
+     "support",
+     "Leaders spend Monday chasing numbers. One digest saves that.",
+     ""
+    ],
+    [
+     "novelist",
+     "push",
+     "Every KPI from every team is a phone book nobody reads. I think it should be five numbers and one sentence each.",
+     "economist"
+    ],
+    [
+     "measurer",
+     "push",
+     "Numbers without their definitions start arguments. Which revenue figure, booked or billed?",
+     ""
+    ],
+    [
+     "steward",
+     "refine",
+     "Each number needs an owner who answers for it.",
+     ""
+    ],
+    [
+     "inventor",
+     "support",
+     "Make it live: a dashboard that updates every hour.",
+     ""
+    ]
+   ],
+   "card": "A weekly digest with the top KPIs, each with an owner and a definition.",
+   "credits": [
+    [
+     "novelist",
+     "the top KPIs"
+    ],
+    [
+     "steward",
+     "each with an owner"
+    ],
+    [
+     "measurer",
+     "and a definition"
+    ]
+   ]
+  },
+  {
+   "name": "Pushback and concessions",
+   "notes": [
+    [
+     "inventor",
+     "concede",
+     "Fine, weekly email beats a dashboard nobody opens. Drop the live version.",
+     "novelist"
+    ],
+    [
+     "mapper",
+     "push",
+     "Five numbers hide cause and effect. Show what moved and why next to each.",
+     "novelist"
+    ],
+    [
+     "novelist",
+     "concede",
+     "Agreed, but one line of why, not a paragraph.",
+     "mapper"
+    ],
+    [
+     "operator",
+     "refine",
+     "Flag only numbers outside their normal range so attention goes where it's needed.",
+     ""
+    ],
+    [
+     "utilitarian",
+     "push",
+     "If it goes only to leadership, the teams doing the work never see their own numbers.",
+     "economist"
+    ]
+   ],
+   "card": "A weekly digest of eight KPIs with owner, definition, one line of why, and red flags for numbers outside normal range.",
+   "credits": [
+    [
+     "mapper",
+     "one line of why"
+    ],
+    [
+     "operator",
+     "red flags for numbers outside normal range"
+    ]
+   ]
+  },
+  {
+   "name": "Best version",
+   "notes": [
+    [
+     "economist",
+     "concede",
+     "Send the same digest to team leads too. Costs nothing extra.",
+     "utilitarian"
+    ],
+    [
+     "programmer",
+     "refine",
+     "Pull from the source systems, not spreadsheets, or the numbers drift.",
+     ""
+    ],
+    [
+     "craftsman",
+     "support",
+     "Short, owned and honest. That's a digest worth opening.",
+     ""
+    ]
+   ],
+   "card": "A weekly digest to leadership and team leads: eight KPIs pulled from source systems, each with owner, definition, one line of why and an out-of-range flag.",
+   "credits": [
+    [
+     "utilitarian",
+     "leadership and team leads"
+    ],
+    [
+     "programmer",
+     "pulled from source systems"
+    ]
+   ]
+  }
+ ],
+ "vote": {
+  "proceed": 16,
+  "revise": 4,
+  "kill": 0
+ },
+ "gates": [
+  {
+   "gate": "Business value",
+   "status": "pass",
+   "finding": "Hours of Monday number-chasing saved.",
+   "change": "None."
+  },
+  {
+   "gate": "Feasibility",
+   "status": "revise",
+   "finding": "Two KPIs have no system source today.",
+   "change": "Start with six automatable KPIs, add two later."
+  },
+  {
+   "gate": "Risk and safety",
+   "status": "pass",
+   "finding": "Read-only access to source data.",
+   "change": "None."
+  },
+  {
+   "gate": "Cost",
+   "status": "pass",
+   "finding": "Uses existing reporting tools.",
+   "change": "None."
+  },
+  {
+   "gate": "Human impact",
+   "status": "pass",
+   "finding": "Teams see their own numbers.",
+   "change": "None."
+  },
+  {
+   "gate": "Clarity",
+   "status": "pass",
+   "finding": "Fits on one screen.",
+   "change": "None."
+  }
+ ],
+ "final": "Every Monday, leadership and team leads get one digest of six KPIs pulled straight from source systems, growing to eight. Each number has an owner, a definition and one line on why it moved, and anything outside its normal range is flagged first.",
+ "changed": [
+  "Eight KPIs instead of all of them",
+  "Owner and definition for each",
+  "One line of why per number",
+  "Out-of-range flags first",
+  "Team leads get it too",
+  "Pulled from source systems"
+ ],
+ "dissent": "The Inventor still thinks a weekly email is too slow and wants a live view later.",
+ "readiness": "Ready to build",
+ "final_credits": [
+  [
+   "utilitarian",
+   "leadership and team leads"
+  ],
+  [
+   "gate:Feasibility",
+   "six KPIs"
+  ],
+  [
+   "programmer",
+   "pulled straight from source systems"
+  ],
+  [
+   "steward",
+   "an owner"
+  ],
+  [
+   "measurer",
+   "a definition"
+  ],
+  [
+   "mapper",
+   "one line on why it moved"
+  ],
+  [
+   "operator",
+   "anything outside its normal range is flagged first"
+  ]
+ ]
+}
