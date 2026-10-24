@@ -1,52 +1,78 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Council · ObviousLogic demos</title><link rel="stylesheet" href="kit/kit.css"><style>
-#table{position:relative;width:100%;height:600px;margin:4vh auto;max-width:960px}
-#round{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;text-align:center;font:400 20px/1.4 system-ui,sans-serif;color:var(--fg)}
-#round::before{content:"";position:absolute;left:50%;top:50%;width:340px;height:340px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#ffffff0d,transparent 70%);z-index:-1}
-.seat{position:absolute;width:170px;transform:translate(-50%,-50%);text-align:center;transition:opacity .8s;opacity:.45}
-.seat .who{font:600 13px Barlow,sans-serif;letter-spacing:.18em;text-transform:uppercase}
-.seat small{display:block;font:10px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:4px}
-.seat.on{opacity:1}
-.bubble{position:absolute;width:220px;transform:translate(-50%,-50%);font-size:15px;line-height:1.5;z-index:2;animation:fade .8s ease}
-@keyframes fade{from{opacity:0;transform:translate(-50%,-40%)}}
-.bubble b{font:11px ui-monospace,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;font-weight:400}
-.for b{color:var(--ok)}.against b{color:var(--bad)}.refine b{color:var(--accent)}.dissent b{color:var(--dim)}
-#meter{width:100%;height:1px;background:var(--faint);max-width:960px;margin:8px auto 0}#fill{height:1px;width:0;background:var(--fg);transition:width 1.2s ease}
-#result{max-width:640px;margin:10vh 0 0;display:none}#result b{font:11px ui-monospace,Menlo,monospace;letter-spacing:.18em;color:var(--dim);font-weight:400}#result p{font-size:20px;margin:8px 0 40px}
-.wrap{width:100%;max-width:960px;margin:0 auto}
-</style></head><body>
-<section class="screen in"><div class="tele" data-kit-tele></div>
-<h1>Big calls get argued before they get made.</h1>
-<p class="lede">In Palladium, a high-stakes recommendation goes to a council of differing viewpoints first. They critique it over rounds, refine it, and the dissent stays on record next to the decision. This page replays hand-written sample debates.</p>
-<p data-kit-note></p>
-<p class="note">Seats are fictional personas <em>inspired by</em> historical thinkers. Their lines were written for this demo and are not quotes. Debates are sample content.</p></section>
-<section class="screen"><div class="tele"><select id="pick"></select> <button id="play" class="go">Play debate</button> ROUND <b id="stat">-</b></div>
-<div id="table"><div id="round">Pick a sample idea and press play.</div></div>
-<div class="tele">CONVERGENCE</div><div id="meter"><div id="fill"></div></div>
-<div id="result"></div></section>
+<title>Assembly · ObviousLogic demos</title><link rel="stylesheet" href="kit/kit.css">
+<style>
+.work{display:grid;grid-template-columns:1.55fr 1fr;gap:3vw}
+.left{display:grid;grid-template-rows:minmax(0,1fr) auto;min-height:0}
+#amph{position:relative;min-height:0}
+.seat{position:absolute;width:86px;transform:translate(-50%,-50%);text-align:center;opacity:.35;transition:opacity .5s}
+.seat i{display:block;width:8px;height:8px;margin:0 auto 4px;border-radius:50%;background:var(--dim);transition:background .5s,box-shadow .5s}
+.seat b{font:600 9px Barlow,sans-serif;letter-spacing:.12em;text-transform:uppercase;display:block;line-height:1.2}
+.seat small{font:8px/1.2 var(--mono);color:var(--dim);display:block}
+.seat.on{opacity:1}.seat.support i{background:var(--ok)}.seat.doubt i{background:var(--bad)}.seat.refine i{background:var(--accent)}
+.seat.speak i{box-shadow:0 0 0 6px #ffffff1c}
+#say{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(440px,70%);text-align:center;font-size:15px;line-height:1.45;min-height:64px}
+#say b{display:block;font:10px var(--mono);letter-spacing:.16em;text-transform:uppercase;font-weight:400;margin-bottom:4px}
+#cardwrap{padding-top:8px;background:linear-gradient(var(--faint),var(--faint)) top/100% 1px no-repeat}
+#card{font-size:17px;line-height:1.45;min-height:3em;transition:opacity .3s}#card.flash{opacity:.15}
+#ver{color:var(--accent)}
+.right{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.gate{display:grid;grid-template-columns:1fr auto;column-gap:12px;padding:4px 0;opacity:.3;transition:opacity .5s}
+.gate.on{opacity:1}.gate .h{font-size:12px}.gate .st{font:10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.gate .bar{grid-column:1/3;height:2px;background:var(--faint);margin-top:6px;transition:background .5s}
+.gate p{grid-column:1/3;font-size:12px;line-height:1.35;color:var(--dim);margin:4px 0 0}
+.gate.pass .bar{background:var(--ok)}.gate.pass .st{color:var(--ok)}.gate.revise .bar{background:var(--accent)}.gate.revise .st{color:var(--accent)}.gate.fail .bar,.gate.fail .st{color:var(--bad);background:none}
+.gate.fail .bar{background:var(--bad)}
+#final{display:none;margin-top:10px}#final.show{display:block;animation:rise .7s ease}@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+#final ul{margin:4px 0 6px;padding-left:16px;font-size:12px;color:var(--dim);line-height:1.4}#dissent{font-size:12px;color:var(--dim);margin:2px 0}
+#tally span{margin-right:18px}
+</style></head><body class="stage">
+<main class="stage-main">
+<div><div class="tele" data-kit-tele></div><h1>Twenty minds make one idea better before it costs anything</h1></div>
+<div class="work">
+ <div class="left"><div id="amph"><div id="say">Pick a sample idea and submit it to the Assembly.</div></div>
+  <div id="cardwrap"><div class="tele">IDEA CARD <b id="ver">V0</b> &nbsp; PHASE <b id="stat">-</b> &nbsp; <span id="tally"></span></div><div id="card"></div></div></div>
+ <div class="right"><div class="tele">REFINEMENT GATES / PASS · REVISE · FAIL</div><div id="track"></div>
+  <div id="final"><div class="tele">FINAL / <b id="ready"></b></div><ul id="changed"></ul><div class="tele">DISSENT ON RECORD</div><p id="dissent"></p></div></div>
+</div>
+<div class="act"><select id="pick" aria-label="Sample idea"></select><button class="big" id="go">Submit idea to the Assembly</button><span class="verdict" id="out"></span></div>
+</main>
+<template id="info"><p>In Palladium, a contested idea goes to an assembly of very different thinkers. They refine it over rounds and vote, then the survivor passes a fixed set of refinement gates. Out comes a better version, what changed, and the dissent on record. This page replays two hand-written samples.</p>
+<p>Seats are fictional personas <em>inspired by</em> public-domain historical figures. Their lines were written for this demo and are not quotes.</p>
+<div class="tele">WHY I BUILT THIS / DRAFT, PENDING DAN'S CONFIRMATION</div>
+<p>An idea gets stress-tested by many perspectives and checked against set gates before it costs anything.</p></template>
 <script type="module">
-import { loadAll, timeline } from "../player.js";
-import { mount, setStatus } from "./kit/kit.js"; mount("council-demo", { status: "REPLAY" });
-const SPEED = new URLSearchParams(location.search).get("fast") ? 60 : 1600;
-const [personas, debates] = await loadAll(fetch, "../");
-const table = document.getElementById("table"), seats = {};
-personas.forEach((p, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / personas.length, x = 50 + 42 * Math.cos(a), y = 50 + 42 * Math.sin(a);
-  const d = document.createElement("div"); d.className = "seat"; d.style.left = x + "%"; d.style.top = y + "%";
-  d.innerHTML = `<div class="who">${p.name}</div><small>inspired by ${p.inspired_by}</small>`; table.append(d); seats[p.id] = { el: d, x, y }; });
-debates.forEach((d, i) => pick.add(new Option(d.idea, i)));
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-play.onclick = async () => {
-  play.disabled = true; result.style.display = "none"; fill.style.width = "0";
-  const d = debates[pick.value]; document.getElementById("round").textContent = d.idea;
-  for (const ev of timeline(d)) {
-    table.querySelectorAll(".bubble").forEach(b => b.remove()); Object.values(seats).forEach(s => s.el.classList.remove("on"));
-    if (ev.type === "round") { document.getElementById("stat").textContent = `${String(ev.round).padStart(2,"0")}`; fill.style.width = ev.convergence + "%"; continue; }
-    if (ev.type === "turn") { const s = seats[ev.seat]; s.el.classList.add("on");
-      const b = document.createElement("div"); b.className = "bubble " + ev.stance; b.style.left = (50 + (s.x - 50) * 0.5) + "%"; b.style.top = (50 + (s.y - 50) * 0.5) + "%";
-      b.innerHTML = `<b>${ev.stance}</b><br>${ev.text}`; table.append(b); await sleep(SPEED); }
-    if (ev.type === "end") { fill.style.width = "100%"; document.getElementById("stat").textContent = "COMPLETE";
-      result.innerHTML = `<b>RECOMMENDATION</b><p>${ev.recommendation}</p><b>DISSENT ON RECORD</b><p>${ev.dissent}</p><small>${ev.note}</small>`; result.style.display = "block"; }
+import { loadAll, timeline, GATES } from "../assembly.js";
+import { mount, setStatus, sleep } from "./kit/kit.js";
+mount("assembly-demo", { status: "READY" });
+const $ = id => document.getElementById(id);
+const { personas, ideas } = await loadAll(fetch, "../"), seat = {};
+$("pick").innerHTML = ideas.map((d, i) => `<option value="${i}">${d.title}</option>`).join("");
+personas.forEach((p, i) => { const a = Math.PI * (1 - i / (personas.length - 1)), el = document.createElement("div");
+  el.className = "seat"; const r = i % 2 ? .62 : 1; el.style.left = 50 + 46 * r * Math.cos(a) + "%"; el.style.top = 78 - 70 * r * Math.sin(a) + "%";
+  el.innerHTML = `<i></i><b>${p.name.replace("The ", "")}</b><small>${p.inspired_by}</small>`; el.title = `${p.name}, inspired by ${p.inspired_by}. ${p.lens}`; $("amph").append(el); seat[p.id] = el; });
+const name = id => personas.find(p => p.id === id).name;
+const track = () => $("track").innerHTML = GATES.map(g => `<div class="gate"><span class="h">${g}</span><span class="st">waiting</span><div class="bar"></div><p></p></div>`).join("");
+const reset = () => { track(); $("final").classList.remove("show"); $("tally").textContent = ""; $("out").textContent = ""; $("stat").textContent = "-"; $("ver").textContent = "V0";
+  $("card").textContent = ideas[$("pick").value].idea; Object.values(seat).forEach(s => s.className = "seat"); $("say").textContent = "Pick a sample idea and submit it to the Assembly."; };
+let busy = false;
+async function play() {
+  if (busy) return; busy = true; reset(); $("go").disabled = $("pick").disabled = true; setStatus("IN SESSION"); delete document.body.dataset.done;
+  const idea = ideas[$("pick").value];
+  for (const e of timeline(idea)) {
+    if (e.kind === "card") { $("card").classList.add("flash"); await sleep(250); $("card").textContent = e.text; $("ver").textContent = "V" + e.version; $("card").classList.remove("flash"); await sleep(1100); }
+    if (e.kind === "round") { $("stat").textContent = `ROUND ${e.n} / ${e.name.toUpperCase()}`; await sleep(400); }
+    if (e.kind === "note") { Object.values(seat).forEach(s => s.classList.remove("speak")); seat[e.seat].classList.add("on", e.stance, "speak");
+      $("say").innerHTML = `<b style="color:var(--${e.stance === "support" ? "ok" : e.stance === "doubt" ? "bad" : "accent"})">${name(e.seat)} / ${e.stance}</b>${e.text}`; await sleep(1500); }
+    if (e.kind === "vote") { $("stat").textContent = "VOTE"; Object.values(seat).forEach(s => s.classList.add("on")); $("say").textContent = "All twenty seats vote.";
+      $("tally").innerHTML = `<span style="color:var(--ok)">PROCEED ${e.proceed}</span><span style="color:var(--accent)">REVISE ${e.revise}</span><span style="color:var(--bad)">KILL ${e.kill}</span>`; await sleep(1400);
+      $("say").textContent = "The idea survives and goes to the gates."; }
+    if (e.kind === "gate") { $("stat").textContent = "GATE " + (e.n + 1) + " / " + e.gate.toUpperCase(); const g = $("track").children[e.n]; g.classList.add("on", "pulse"); await sleep(600);
+      g.classList.remove("pulse"); g.classList.add(e.status); g.querySelector(".st").textContent = e.status; g.querySelector("p").textContent = e.change !== "None." ? e.change : e.finding; await sleep(900); }
+    if (e.kind === "final") { $("stat").textContent = "DONE"; $("ver").textContent = "FINAL"; $("card").textContent = e.text; $("ready").textContent = e.readiness.toUpperCase();
+      $("changed").innerHTML = e.changed.map(c => `<li>${c}</li>`).join(""); $("dissent").textContent = e.dissent; $("final").classList.add("show"); document.querySelectorAll(".gate p").forEach(p => p.remove());
+      $("out").textContent = "Improved idea out. " + e.readiness; $("out").className = "verdict okc"; $("say").textContent = "The refined idea, what changed and the dissent are on record."; }
   }
-  play.disabled = false; document.body.dataset.done = "1";
-};
+  setStatus("DONE"); $("go").textContent = "Replay"; $("go").disabled = $("pick").disabled = false; busy = false; document.body.dataset.done = "1";
+}
+$("go").onclick = play; $("pick").onchange = reset; reset(); document.body.dataset.ready = "1";
 </script></body></html>

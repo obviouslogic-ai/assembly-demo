@@ -1,7 +1,142 @@
 [
- {"id":"duty","name":"The Ethicist","inspired_by":"Immanuel Kant","lens":"Would this still be fair if everyone did it? Treats people as ends, not means."},
- {"id":"scale","name":"The Builder","inspired_by":"Andrew Carnegie","lens":"Unit costs, supply, and whether it survives being done ten thousand times."},
- {"id":"invent","name":"The Inventor","inspired_by":"Nikola Tesla","lens":"Pushes for the bolder version and asks what the idea becomes in ten years."},
- {"id":"invert","name":"The Skeptic","inspired_by":"Charlie Munger","lens":"Inverts: how would this fail? Looks for incentives and second-order effects."},
- {"id":"rigor","name":"The Analyst","inspired_by":"Ada Lovelace","lens":"Separates what the system can actually do from what people hope it does."}
+ {
+  "id": "curie",
+  "name": "The Measurer",
+  "inspired_by": "Marie Curie",
+  "field": "science",
+  "lens": "Asks what was actually measured and how often."
+ },
+ {
+  "id": "darwin",
+  "name": "The Observer",
+  "inspired_by": "Charles Darwin",
+  "field": "science",
+  "lens": "Watches what survives small changes over time."
+ },
+ {
+  "id": "lovelace",
+  "name": "The Programmer",
+  "inspired_by": "Ada Lovelace",
+  "field": "science",
+  "lens": "Asks what the machine can and cannot be told to do."
+ },
+ {
+  "id": "humboldt",
+  "name": "The Systems Mapper",
+  "inspired_by": "Alexander von Humboldt",
+  "field": "science",
+  "lens": "Traces how one change ripples through connected parts."
+ },
+ {
+  "id": "tesla",
+  "name": "The Inventor",
+  "inspired_by": "Nikola Tesla",
+  "field": "science",
+  "lens": "Pushes for the bolder version of the idea."
+ },
+ {
+  "id": "smith",
+  "name": "The Economist",
+  "inspired_by": "Adam Smith",
+  "field": "business",
+  "lens": "Follows incentives and who pays for what."
+ },
+ {
+  "id": "wedgwood",
+  "name": "The Manufacturer",
+  "inspired_by": "Josiah Wedgwood",
+  "field": "business",
+  "lens": "Cares about repeatable quality at scale."
+ },
+ {
+  "id": "franklin",
+  "name": "The Pragmatist",
+  "inspired_by": "Benjamin Franklin",
+  "field": "business",
+  "lens": "Wants a cheap trial before a big commitment."
+ },
+ {
+  "id": "nightingale",
+  "name": "The Operator",
+  "inspired_by": "Florence Nightingale",
+  "field": "operations",
+  "lens": "Reads the numbers on the ground and fixes the process."
+ },
+ {
+  "id": "brunel",
+  "name": "The Engineer",
+  "inspired_by": "Isambard Kingdom Brunel",
+  "field": "operations",
+  "lens": "Checks the load the system must carry."
+ },
+ {
+  "id": "suntzu",
+  "name": "The Strategist",
+  "inspired_by": "Sun Tzu",
+  "field": "operations",
+  "lens": "Weighs position, timing and what the other side will do."
+ },
+ {
+  "id": "tubman",
+  "name": "The Guide",
+  "inspired_by": "Harriet Tubman",
+  "field": "operations",
+  "lens": "Plans for the route failing and keeps people safe."
+ },
+ {
+  "id": "confucius",
+  "name": "The Steward",
+  "inspired_by": "Confucius",
+  "field": "ethics",
+  "lens": "Asks whether roles and duties stay clear."
+ },
+ {
+  "id": "mill",
+  "name": "The Utilitarian",
+  "inspired_by": "John Stuart Mill",
+  "field": "ethics",
+  "lens": "Weighs total benefit against harm to anyone."
+ },
+ {
+  "id": "wollstonecraft",
+  "name": "The Advocate",
+  "inspired_by": "Mary Wollstonecraft",
+  "field": "ethics",
+  "lens": "Speaks for the people with the least say."
+ },
+ {
+  "id": "davinci",
+  "name": "The Polymath",
+  "inspired_by": "Leonardo da Vinci",
+  "field": "design",
+  "lens": "Sketches alternatives before settling."
+ },
+ {
+  "id": "morris",
+  "name": "The Craftsman",
+  "inspired_by": "William Morris",
+  "field": "design",
+  "lens": "Wants it useful and good to use."
+ },
+ {
+  "id": "vitruvius",
+  "name": "The Architect",
+  "inspired_by": "Vitruvius",
+  "field": "design",
+  "lens": "Balances sturdiness, usefulness and delight."
+ },
+ {
+  "id": "bach",
+  "name": "The Composer",
+  "inspired_by": "Johann Sebastian Bach",
+  "field": "arts",
+  "lens": "Looks for structure that holds many voices together."
+ },
+ {
+  "id": "austen",
+  "name": "The Novelist",
+  "inspired_by": "Jane Austen",
+  "field": "arts",
+  "lens": "Notices how people will really react."
+ }
 ]

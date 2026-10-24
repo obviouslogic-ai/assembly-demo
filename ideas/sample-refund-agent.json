@@ -1,0 +1,143 @@
+{
+ "sample": true,
+ "title": "Sample idea: let an agent approve small refunds",
+ "idea": "An AI agent approves every customer refund under $50 without a person.",
+ "rounds": [
+  {
+   "name": "Blind positions",
+   "notes": [
+    [
+     "smith",
+     "doubt",
+     "Who gains from gaming a no-questions refund? Expect the rate to climb."
+    ],
+    [
+     "nightingale",
+     "support",
+     "Most small refunds wait days for a two-minute check. That wait is the real cost."
+    ],
+    [
+     "wollstonecraft",
+     "doubt",
+     "Customers who are refused need a person to appeal to."
+    ],
+    [
+     "curie",
+     "doubt",
+     "What share of past small refunds were wrong? Without that number this is a guess."
+    ],
+    [
+     "tesla",
+     "support",
+     "Go further: refund instantly at the moment of complaint."
+    ],
+    [
+     "tubman",
+     "doubt",
+     "Plan for the day the agent is fooled a thousand times in an hour."
+    ]
+   ],
+   "card": "An agent approves refunds under $50, with a daily cap and a human appeal path."
+  },
+  {
+   "name": "Cross-examination",
+   "notes": [
+    [
+     "franklin",
+     "refine",
+     "Try it on one product line for a month before all of them."
+    ],
+    [
+     "brunel",
+     "refine",
+     "Set a hard daily spending ceiling the agent cannot raise."
+    ],
+    [
+     "austen",
+     "refine",
+     "Tell the customer plainly that an agent decided, and how to reach a person."
+    ],
+    [
+     "humboldt",
+     "refine",
+     "Refund data should flow back to product teams, or the cause never gets fixed."
+    ]
+   ],
+   "card": "For one product line, an agent approves refunds under $50, up to a daily cap, tells the customer an agent decided, and offers a human appeal. Reasons go back to the product team."
+  },
+  {
+   "name": "Vote",
+   "notes": [
+    [
+     "mill",
+     "support",
+     "Faster help for many, with a cap on the harm."
+    ],
+    [
+     "suntzu",
+     "doubt",
+     "Watch for organized abuse once word spreads."
+    ],
+    [
+     "vitruvius",
+     "support",
+     "Sturdy enough to test."
+    ]
+   ],
+   "card": "Same, plus a fraud check that pauses the agent if refunds spike."
+  }
+ ],
+ "vote": {
+  "proceed": 12,
+  "revise": 7,
+  "kill": 1
+ },
+ "gates": [
+  {
+   "gate": "Business value",
+   "status": "pass",
+   "finding": "Shorter waits on most refunds.",
+   "change": "None."
+  },
+  {
+   "gate": "Feasibility",
+   "status": "pass",
+   "finding": "Rules fit in the existing refund system.",
+   "change": "None."
+  },
+  {
+   "gate": "Risk and safety",
+   "status": "revise",
+   "finding": "A spike could drain money before anyone notices.",
+   "change": "Pause automatically above 3x the normal hourly rate."
+  },
+  {
+   "gate": "Cost",
+   "status": "pass",
+   "finding": "Cap limits the worst month to a known number.",
+   "change": "None."
+  },
+  {
+   "gate": "Human impact",
+   "status": "revise",
+   "finding": "Refused customers could feel stonewalled.",
+   "change": "Every refusal links to a person within one business day."
+  },
+  {
+   "gate": "Clarity",
+   "status": "pass",
+   "finding": "Rules fit on one page.",
+   "change": "None."
+  }
+ ],
+ "final": "For one product line, an agent approves refunds under $50 up to a daily cap. It pauses itself if refunds run 3x above normal, says plainly that an agent decided, and links every refusal to a person within one business day. Refund reasons go to the product team weekly.",
+ "changed": [
+  "Limited to one product line first",
+  "Daily cap and automatic pause on spikes",
+  "Plain notice that an agent decided",
+  "Human appeal within one business day",
+  "Reasons feed back to product"
+ ],
+ "dissent": "The Economist still expects the refund rate to rise once customers learn the rule, and wants it measured before any expansion.",
+ "readiness": "Ready for a limited test"
+}

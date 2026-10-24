@@ -1,0 +1,143 @@
+{
+ "sample": true,
+ "title": "Sample idea: a four-day week for the support team",
+ "idea": "Move the support team to a four-day week with no change in pay.",
+ "rounds": [
+  {
+   "name": "Blind positions",
+   "notes": [
+    [
+     "nightingale",
+     "doubt",
+     "Coverage on the fifth day has to come from somewhere."
+    ],
+    [
+     "mill",
+     "support",
+     "Rested people make fewer mistakes, which helps customers too."
+    ],
+    [
+     "smith",
+     "doubt",
+     "Who absorbs the cost if output drops?"
+    ],
+    [
+     "austen",
+     "support",
+     "People stay longer where they feel trusted."
+    ],
+    [
+     "brunel",
+     "doubt",
+     "Peak load is Monday. Check the schedule against it."
+    ],
+    [
+     "confucius",
+     "doubt",
+     "Who owns a ticket that spans the day off?"
+    ]
+   ],
+   "card": "Four-day week for support, with staggered days off so all five days are covered."
+  },
+  {
+   "name": "Cross-examination",
+   "notes": [
+    [
+     "franklin",
+     "refine",
+     "Run it for one quarter and compare against the last one."
+    ],
+    [
+     "curie",
+     "refine",
+     "Agree the measures first: response time, resolution rate, sick days."
+    ],
+    [
+     "davinci",
+     "refine",
+     "Sketch two rotas and pick the one that covers Monday best."
+    ],
+    [
+     "morris",
+     "refine",
+     "Ask the team which rota they would actually want to work."
+    ]
+   ],
+   "card": "One-quarter trial of a four-day week for support on a staggered rota the team picks, measured on response time, resolution and sick days."
+  },
+  {
+   "name": "Vote",
+   "notes": [
+    [
+     "wedgwood",
+     "support",
+     "Quality targets are written down, so this is testable."
+    ],
+    [
+     "suntzu",
+     "doubt",
+     "Rivals hiring our staff may follow if it works."
+    ],
+    [
+     "bach",
+     "support",
+     "The rota keeps every hour covered."
+    ]
+   ],
+   "card": "Same, plus a clear owner for every open ticket at handover."
+  }
+ ],
+ "vote": {
+  "proceed": 10,
+  "revise": 8,
+  "kill": 2
+ },
+ "gates": [
+  {
+   "gate": "Business value",
+   "status": "pass",
+   "finding": "Could cut turnover, which is expensive.",
+   "change": "None."
+  },
+  {
+   "gate": "Feasibility",
+   "status": "revise",
+   "finding": "Monday peak is short one person on rota B.",
+   "change": "Use rota A, which covers Monday fully."
+  },
+  {
+   "gate": "Risk and safety",
+   "status": "pass",
+   "finding": "No safety risk found.",
+   "change": "None."
+  },
+  {
+   "gate": "Cost",
+   "status": "revise",
+   "finding": "Overtime could quietly fill gaps.",
+   "change": "Overtime is tracked and reported weekly."
+  },
+  {
+   "gate": "Human impact",
+   "status": "pass",
+   "finding": "Team helped choose the rota.",
+   "change": "None."
+  },
+  {
+   "gate": "Clarity",
+   "status": "pass",
+   "finding": "Measures and end date are written down.",
+   "change": "None."
+  }
+ ],
+ "final": "A one-quarter trial of a four-day week for support on rota A, which covers Monday fully, with a named owner for every ticket at handover. Response time, resolution rate, sick days and overtime are tracked weekly and compared with last quarter before any decision to keep it.",
+ "changed": [
+  "Trial for one quarter, not permanent",
+  "Rota chosen with the team and checked against the Monday peak",
+  "Named owner at every handover",
+  "Overtime tracked so gaps are visible",
+  "Measures agreed before the start"
+ ],
+ "dissent": "Two seats still voted to stop: they doubt one quarter is long enough to see the real effect on output.",
+ "readiness": "Ready for a limited test"
+}
